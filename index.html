@@ -3,41 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 18+</title>
+    <title>Thư Viện Game 18+</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #111; /* Nền tối */
+            background: #000; /* Nền đen */
             color: #fff; /* Văn bản màu trắng */
         }
         .navbar {
-            background: #FF6347; /* Đổi màu navbar */
+            background: #007BFF;
             color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
         }
         .navbar a {
             color: white;
             text-decoration: none;
             margin-left: 15px;
-            font-size: 18px;
-            transition: color 0.3s ease;
         }
         .navbar a:hover {
-            color: #f0f0f0;
+            text-decoration: underline;
         }
         h1 {
             text-align: center;
-            margin-top: 80px;
-            font-size: 30px;
+            margin-top: 20px;
         }
         .menu {
             display: flex;
@@ -46,69 +39,65 @@
             padding: 20px;
         }
         .menu-item {
-    position: relative;
-    background: url('Castle.png') no-repeat center center;
-    background-size: contain; /* Đảm bảo ảnh không bị cắt xén mà vừa với phần tử */
-    margin: 10px;
-    padding: 10px;
-    width: 200px;
-    height: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-        .menu-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            width: 300px;
+            height: 400px; /* Cố định chiều cao của menu-item */
+            margin: 15px;
+            overflow: hidden; /* Đảm bảo ảnh không lan ra ngoài khu vực menu-item */
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .menu-item img {
+
+        /* Thêm ảnh nền */
+        .menu-item::before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            object-fit: contain;  /* Đảm bảo ảnh không bị cắt xén và hiển thị đầy đủ */
+            height: 100%;
+            background: url('Castle.png') no-repeat center center;
+            background-size: cover; /* Đảm bảo ảnh phủ đầy khu vực */
+            z-index: -1; /* Đặt ảnh nền dưới các phần tử văn bản */
             filter: brightness(60%);
-            transition: filter 0.3s ease;
         }
-        .menu-item:hover img {
-            filter: brightness(80%);
+
+        /* Lớp phủ mờ khi hover để làm văn bản dễ đọc hơn */
+        .menu-item:hover::before {
+            filter: brightness(50%);
         }
+
+        /* Hiệu ứng hover cho menu-item */
+        .menu-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+        }
+
         .menu-item h3 {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            z-index: 1;
-        }
-        .game-description {
-            font-size: 14px;
-            color: #f0f0f0;
-            text-align: center;
-            margin: 10px 0;
-        }
-        .menu-item a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-        .navbar span {
+            margin: 20px 0;
             font-size: 24px;
+            font-weight: bold;
         }
-        .game-description {
-            font-size: 12px;
-            margin: 15px;
+
+        .menu-item p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <span>Game 18+</span>
+        <span>Thư Viện Game 18+</span>
         <div>
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
@@ -116,21 +105,17 @@
         </div>
     </div>
 
-    <h1>Danh Sách Game 18+</h1>
+    <h1>Danh Sách Game</h1>
     <div class="menu">
         <div class="menu-item" onclick="openGamePage(1)">
             <img src="Castle.png" alt="Eliza's Secret Potion">
             <h3>Eliza's Secret Potion</h3>
-            <div class="game-description">
-                Trò chơi này dành cho những ai yêu thích sự bí ẩn, phép thuật và những thách thức tình cảm gay cấn!
-            </div>
+            <p>Khám phá những phép thuật bí ẩn và giải đố trong trò chơi hấp dẫn này. Cùng Eliza tìm ra công thức hoàn hảo trong những tình huống nguy hiểm!</p>
         </div>
         <div class="menu-item" onclick="openGamePage(2)">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
-            <div class="game-description">
-                Khám phá một thế giới đầy rẫy những thử thách khó khăn và các mối quan hệ hấp dẫn trong trò chơi này.
-            </div>
+            <p>Thế giới đầy thử thách đang chờ bạn. Hãy vượt qua các chướng ngại vật và chiến thắng trong cuộc phiêu lưu này.</p>
         </div>
         <!-- Thêm các game khác tương tự -->
     </div>
