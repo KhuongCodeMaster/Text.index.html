@@ -1,0 +1,70 @@
+/* Toàn bộ nền trang */
+body {
+    background-color: #000; /* Nền màu đen */
+    color: #fff;           /* Chữ màu trắng */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #444;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+}
+
+/* Hình ảnh và mô tả */
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.image-item {
+    width: 30%; /* Ảnh nhỏ gọn hơn */
+    text-align: center;
+}
+
+.image-item img {
+    max-width: 100%; /* Đảm bảo ảnh không quá to */
+    height: auto;
+    border: 2px solid #fff;
+    border-radius: 8px;
+}
+
+.image-item p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Link tải game */
+.download-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.download-link {
+    color: #00f; /* Màu xanh dương */
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+.download-link:hover {
+    color: #0ff; /* Màu xanh lơ khi hover */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    border-top: 2px solid #444;
+    margin-top: 20px;
+    font-size: 14px;
+}
