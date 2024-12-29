@@ -19,6 +19,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
         .navbar a {
             color: white;
@@ -28,296 +32,131 @@
         .navbar a:hover {
             text-decoration: underline;
         }
-        .content {
-            padding: 20px;
+        h1 {
             text-align: center;
+            margin-top: 80px;
+            font-size: 32px;
         }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background 0.3s;
+        .game-info {
+            text-align: center;
+            margin: 20px;
         }
-        .button:hover {
-            background: #0056b3;
+        .game-info h2 {
+            font-size: 24px;
         }
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
+        .game-info p {
+            font-size: 16px;
         }
-        .image-grid img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        .image-grid img:hover {
-            transform: scale(1.2);
-        }
-        .comment-section {
-            margin-top: 30px;
-            background-color: #333;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .comment-section h3 {
-            margin-bottom: 10px;
-        }
-        .comment-form input, .comment-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #444;
-            color: white;
-        }
-        .comment-form button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .comment-form button:hover {
-            background-color: #0056b3;
-        }
-        .comments-list {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .comment-item {
-            background-color: #555;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .comment-item .username {
+        /* Thêm hiệu ứng cho "Người tạo ra wed" với aura mạnh mẽ */
+        .creator {
+            font-size: 18px;
             font-weight: bold;
+            color: #fff;
+            text-shadow: 
+                0 0 10px #007BFF, 
+                0 0 20px #007BFF, 
+                0 0 30px #007BFF, 
+                0 0 40px #00FF00, 
+                0 0 50px #00FF00, 
+                0 0 75px #00FF00, 
+                0 0 100px #FFD700;
+            animation: auraEffect 1.5s infinite alternate;
         }
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
+        /* Thêm hiệu ứng cho "Level" */
+        .level {
+            font-size: 16px;
+            font-weight: normal;
+            color: #fff;
         }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .pagination button {
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .pagination button:hover {
-            background: #0056b3;
+        /* Hiệu ứng ánh sáng (aura) mạnh mẽ */
+        @keyframes auraEffect {
+            0% {
+                text-shadow: 
+                    0 0 10px #007BFF, 
+                    0 0 20px #007BFF, 
+                    0 0 30px #007BFF, 
+                    0 0 40px #00FF00, 
+                    0 0 50px #00FF00, 
+                    0 0 75px #00FF00, 
+                    0 0 100px #FFD700;
+            }
+            100% {
+                text-shadow: 
+                    0 0 15px #FFD700, 
+                    0 0 25px #FFD700, 
+                    0 0 35px #FFD700, 
+                    0 0 50px #FF6347, 
+                    0 0 70px #FF6347, 
+                    0 0 100px #FF6347, 
+                    0 0 130px #FF6347;
+            }
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <span>Thông Tin Game</span>
+        <span>Thư Viện Game 18+</span>
         <div>
             <a href="index.html">Trang Chủ</a>
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
-            <a href="#" id="logout" style="display: none;" onclick="logout()">Đăng Xuất</a>
         </div>
     </div>
 
-    <div class="content">
-        <h1 id="game-title">Eliza's Secret Potion</h1>
-        <img id="game-image" src="Castle.png" alt="Ảnh Game Chính Bị Lỗi 🤖" width="300">
-        <p id="game-description">
-            Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng nâng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚
-        </p>
+    <h1>Thông Tin Game</h1>
 
-        <h2>Show Một Chút Ảnh 🌚:</h2>
-        <div class="image-grid">
-            <img id="img1" src="悪夢.png" alt="悪夢">
-            <img id="img2" src="C-2 全身.png" alt="C-2 全身">
-            <img id="img3" src="F-1 全体.png" alt="F-1 全体">
-            <img id="img4" src="D-11 深く.png" alt="D-11 深く">
-            <img id="img5" src="B-7 中出し.png" alt="B-7 中出し">
-            <img id="img6" src="E-8 深い.png" alt="E-8 深い">
-            <img id="img7" src="J-14 中出し後.png" alt="J-14 中出し後">
-        </div>
-
-        <h2 style="margin-top: 30px;">Link Tải Game:</h2>
-        <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
-        <h3 id="username-display">Chưa đăng nhập</h3>
-    </div>
-
-    <div class="comment-section">
-        <h3>Bình luận</h3>
-        <div class="comment-form">
-            <input type="text" id="comment-username" placeholder="Tên của bạn" required>
-            <textarea id="comment-text" placeholder="Viết bình luận của bạn..." required></textarea>
-            <button onclick="submitComment()">Gửi Bình Luận</button>
-        </div>
-        <div class="comments-list" id="comments-list"></div>
-        <div class="pagination" id="pagination"></div>
-    </div>
-
-    <div id="lightbox" class="lightbox">
-        <img src="" alt="Large View" id="lightbox-img">
+    <div class="game-info" id="gameInfo">
+        <!-- Thông tin game sẽ được thêm vào đây -->
     </div>
 
     <script>
-        let currentPage = 1;
-        const commentsPerPage = 10;
+        // Lấy ID trò chơi từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('id');
 
-        // Xử lý Lightbox cho ảnh
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
+        // Hàm để lấy thông tin game theo ID
+        function getGameInfo(gameId) {
+            let gameData = {};
 
-        document.querySelectorAll(".image-grid img").forEach(img => {
-            img.addEventListener("click", () => {
-                lightbox.style.display = "flex";
-                lightboxImg.src = img.src;
-            });
-        });
+            switch (gameId) {
+                case '1':
+                    gameData = {
+                        title: "Eliza's Secret Potion",
+                        creator: "Admin",
+                        level: "Người tạo ra web",
+                        description: "Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng nâng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚"
+                    };
+                    break;
+                case '2':
+                    gameData = {
+                        title: "Game 2",
+                        creator: "Admin",
+                        level: "Người sáng tạo",
+                        description: "Khám phá thế giới đầy thử thách trong trò chơi này. Chiến thắng những thử thách không dễ dàng và tận hưởng chiến thắng!"
+                    };
+                    break;
+                // Thêm các game khác nếu cần
+                default:
+                    gameData = {
+                        title: "Game Không Tìm Thấy",
+                        creator: "N/A",
+                        level: "N/A",
+                        description: "Thông tin không có sẵn."
+                    };
+                    break;
+            }
 
-        lightbox.addEventListener("click", () => {
-            lightbox.style.display = "none";
-        });
-
-        // Xử lý tải game
-        function downloadGame(event) {
-            event.preventDefault();
-            alert("Đang tải game... Vui lòng chờ.");
+            // Hiển thị thông tin game
+            document.getElementById('gameInfo').innerHTML = `
+                <h2>${gameData.title}</h2>
+                <p><strong>Được Đăng Bởi:</strong> <span class="creator">${gameData.creator}</span></p>
+                <p><span class="level">${gameData.level}</span></p>
+                <p class="game-description">${gameData.description}</p>
+            `;
         }
 
-        // Xử lý đăng nhập và đăng xuất
-        function logout() {
-            localStorage.removeItem('username');
-            document.getElementById('logout').style.display = 'none';
-            document.getElementById('username-display').textContent = 'Chưa đăng nhập';
-        }
-
-        // Xử lý bình luận
-        function submitComment() {
-            const username = document.getElementById("comment-username").value.trim();
-            const text = document.getElementById("comment-text").value.trim();
-
-            if (!username || !text) {
-                alert("Bạn phải điền tên và nội dung bình luận!");
-                return;
-            }
-
-            const comment = {
-                username: username,
-                text: text,
-                timestamp: new Date().toLocaleString()
-            };
-
-            let comments = JSON.parse(localStorage.getItem("comments")) || [];
-            comments.push(comment);
-            localStorage.setItem("comments", JSON.stringify(comments));
-
-            displayComments();
-            document.getElementById("comment-username").value = "";
-            document.getElementById("comment-text").value = "";
-        }
-
-        function displayComments() {
-            const commentsList = document.getElementById("comments-list");
-            const pagination = document.getElementById("pagination");
-            commentsList.innerHTML = "";
-
-            const comments = JSON.parse(localStorage.getItem("comments")) || [];
-            const totalPages = Math.ceil(comments.length / commentsPerPage);
-            const startIndex = (currentPage - 1) * commentsPerPage;
-            const endIndex = Math.min(startIndex + commentsPerPage, comments.length);
-
-            if (comments.length === 0) {
-                commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
-                return;
-            }
-
-            for (let i = startIndex; i < endIndex; i++) {
-                const comment = comments[i];
-                const commentElement = document.createElement("div");
-                commentElement.classList.add("comment-item");
-                commentElement.innerHTML = `
-                    <div class="username">${comment.username}</div>
-                    <div class="timestamp">${comment.timestamp}</div>
-                    <div class="text">${comment.text}</div>
-                    <button onclick="deleteComment(${i})">Xóa</button>
-                `;
-                commentsList.appendChild(commentElement);
-            }
-
-            // Pagination controls
-            let paginationHTML = "";
-            if (currentPage > 1) {
-                paginationHTML += `<button onclick="changePage(${currentPage - 1})">Trang Trước</button>`;
-            }
-            if (currentPage < totalPages) {
-                paginationHTML += `<button onclick="changePage(${currentPage + 1})">Trang Sau</button>`;
-            }
-            pagination.innerHTML = paginationHTML;
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            displayComments();
-        }
-
-        function deleteComment(index) {
-    let comments = JSON.parse(localStorage.getItem("comments")) || [];
-    const currentUsername = localStorage.getItem('username'); // Lấy tên người dùng hiện tại
-
-    // Kiểm tra nếu người dùng không đăng nhập hoặc bình luận không phải của họ
-    if (!currentUsername) {
-        alert("Bạn cần đăng nhập để xóa bình luận!");
-        return;
-    }
-
-    const comment = comments[index];
-    
-    if (comment.username !== currentUsername) {
-        alert("Bạn chỉ có thể xóa bình luận của chính mình!");
-        return;
-    }
-
-    // Xóa bình luận nếu người dùng là người đăng bài
-    comments.splice(index, 1);
-    localStorage.setItem("comments", JSON.stringify(comments));
-    displayComments();
-}
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const username = localStorage.getItem('username');
-            if (username) {
-                document.getElementById('username-display').textContent = `Chào, ${username}`;
-                document.getElementById('logout').style.display = 'block';
-            }
-            displayComments();
-        });
+        // Gọi hàm để lấy thông tin game theo ID
+        getGameInfo(gameId);
     </script>
 </body>
 </html>
