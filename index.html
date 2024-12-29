@@ -31,7 +31,6 @@
             text-align: center;
             text-decoration: none;
             color: #333;
-            cursor: pointer;
         }
         .menu-item img {
             max-width: 100%;
@@ -40,75 +39,20 @@
         .menu-item:hover {
             background: #f0f0f0;
         }
-        .game-content {
-            display: none;
-            padding: 20px;
-            text-align: center;
-        }
-        .game-content img {
-            max-width: 90%;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .back-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background: #007BFF;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            width: fit-content;
-        }
-        .back-button:hover {
-            background: #0056b3;
-        }
     </style>
 </head>
 <body>
     <h1>Thư Viện Game</h1>
-    <div class="menu" id="menu">
-        <div class="menu-item" onclick="showGame('game1')">
+    <div class="menu">
+        <a class="menu-item" href="2_index.html">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
-        </div>
-        <div class="menu-item" onclick="showGame('game2')">
+        </a>
+        <a class="menu-item" href="game2/index.html">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
-        </div>
+        </a>
+        <!-- Thêm các menu game khác -->
     </div>
-
-    <div class="game-content" id="game1">
-        <h2>Game 1: Castle Adventure</h2>
-        <img src="Castle.png" alt="Game 1 Image">
-        <p>Thông tin về game 1...</p>
-        <a href="#" class="back-button" onclick="showMenu()">Quay Lại</a>
-    </div>
-
-    <div class="game-content" id="game2">
-        <h2>Game 2: Forest Quest</h2>
-        <img src="game2/image2.jpg" alt="Game 2 Image">
-        <p>Thông tin về game 2...</p>
-        <a href="#" class="back-button" onclick="showMenu()">Quay Lại</a>
-    </div>
-
-    <script>
-        function showGame(gameId) {
-            // Ẩn menu
-            document.getElementById('menu').style.display = 'none';
-
-            // Hiển thị game được chọn
-            document.getElementById(gameId).style.display = 'block';
-        }
-
-        function showMenu() {
-            // Hiển thị menu
-            document.getElementById('menu').style.display = 'flex';
-
-            // Ẩn tất cả nội dung game
-            const gameContents = document.querySelectorAll('.game-content');
-            gameContents.forEach(content => content.style.display = 'none');
-        }
-    </script>
 </body>
 </html>
