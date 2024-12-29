@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000; /* Nền đen */
+            color: #fff; /* Văn bản màu trắng */
+        }
+        .navbar {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span>Thông Tin Game</span>
+        <div>
+            <a href="index.html">Trang Chủ</a>
+            <a href="register.html">Đăng Ký</a>
+            <a href="login.html">Đăng Nhập</a>
+            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1 id="game-title">Tên Game</h1>
+        <img id="game-image" src="" alt="Ảnh Game">
+        <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
+
+        <!-- Các ảnh của game -->
+        <h2>Tiết Lộ Ảnh Game 🌚</h2>
+        <div id="game-images">
+            <img src="悪夢.png" alt="悪夢" />
+            <p>...</p>
+            <img src="C-2 全身.png" alt="C-2 全身" />
+            <p>...</p>
+            <img src="F-1 全体.png" alt="F-1 全体" />
+            <p>...</p>
+            <img src="D-11 深く.png" alt="D-11 深く" />
+            <p>...</p>
+            <img src="B-7 中出し.png" alt="B-7 中出し" />
+            <p>...</p>
+            <img src="E-8 深い.png" alt="E-8 深い" />
+            <p>...</p>
+            <img src="J-14 中出し後.png" alt="J-14 中出し後" />
+            <h1>Tóm Lại Game Có Ngon Không:Ngon 🥵</h1>
+        </div>
+
+        <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
+    </div>
+
+    <script>
+        // Danh sách thông tin game
+        const gameData = {
+            1: {
+                title: "Game 1",
+                image: "Castle.png",
+                description: "Đây là mô tả của Game 1."
+            },
+            2: {
+                title: "Game 2",
+                image: "game2/image2.jpg",
+                description: "Đây là mô tả của Game 2."
+            }
+        };
+
+        // Kiểm tra trạng thái đăng nhập
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const logoutButton = document.getElementById("logout");
+
+            if (isLoggedIn) {
+                logoutButton.style.display = "inline-block";
+            }
+        }
+
+        // Hiển thị thông tin game dựa trên ID
+        function loadGameInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get("id");
+            const game = gameData[gameId];
+
+            if (game) {
+                document.getElementById("game-title").textContent = game.title;
+                document.getElementById("game-image").src = game.image;
+                document.getElementById("game-description").textContent = game.description;
+            } else {
+                document.querySelector(".content").innerHTML = "<h1>Game không tồn tại</h1>";
+            }
+        }
+
+        // Xử lý tải game
+        function downloadGame(event) {
+            event.preventDefault();
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+            if (isLoggedIn) {
+                alert("Bắt đầu tải game!");
+                // Thực hiện tải game thực tế ở đây
+            } else {
+                alert("Bạn cần đăng nhập để tải game này!");
+                window.location.href = "login.html";
+            }
+        }
+
+        // Chạy khi tải trang
+        checkLoginStatus();
+        loadGameInfo();
+    </script>
+</body>
+</html>
