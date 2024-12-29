@@ -35,7 +35,6 @@
         .content img {
             max-width: 100%;
             border-radius: 10px;
-            cursor: pointer; /* Thêm con trỏ khi hover lên ảnh */
         }
         .button {
             display: inline-block;
@@ -49,35 +48,20 @@
         .button:hover {
             background: #0056b3;
         }
-        /* CSS cho phần hiển thị ảnh lớn */
-        .large-image-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 cột */
+            gap: 15px; /* Khoảng cách giữa các ảnh */
             justify-content: center;
-            align-items: center;
+            margin-top: 20px;
         }
-
-        .large-image-container img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
+        .image-grid img {
+            width: 100%;
             border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .image-grid img:hover {
+            transform: scale(1.05); /* Phóng to khi hover */
         }
     </style>
 </head>
@@ -94,30 +78,22 @@
 
     <div class="content">
         <h1 id="game-title">Tên Game</h1>
-        <img id="game-image" src="" alt="Ảnh Game" onclick="openImage('game-image')">
+        <img id="game-image" src="" alt="Ảnh Game">
         <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
 
-        <!-- Các ảnh của game -->
-        <h2>Thể Loại RPGM 18+</h2>
-        <h2>Game:Hoàn Thành</h2>
-        <h2>Game Có Ngon Không:Ngon 🥵</h2>
+        <!-- Lưới hình ảnh -->
         <h2>Show Một Chút Ảnh 🌚:</h2>
-        <div id="game-images">
-            <img src="悪夢.png" alt="Ảnh 1" onclick="openImage('悪夢.png')" />
-            <img src="C-2 全身.png" alt="Ảnh 2" onclick="openImage('C-2 全身.png')" />
-            <img src="F-1 全体.png" alt="Ảnh 3" onclick="openImage('F-1 全体.png')" />
-            <img src="D-11 深く.png" alt="Ảnh 4" onclick="openImage('D-11 深く.png')" />
-            <img src="B-7 中出し.png" alt="Ảnh 5" onclick="openImage('B-7 中出し.png')" />
-            <img src="E-8 深い.png" alt="Ảnh 6" onclick="openImage('E-8 深い.png')" />
+        <div class="image-grid" id="game-images">
+            <img src="悪夢.png" alt="悪夢" />
+            <img src="C-2 全身.png" alt="C-2 全身" />
+            <img src="F-1 全体.png" alt="F-1 全体" />
+            <img src="D-11 深く.png" alt="D-11 深く" />
+            <img src="B-7 中出し.png" alt="B-7 中出し" />
+            <img src="E-8 深い.png" alt="E-8 深い" />
+            <img src="J-14 中出し後.png" alt="J-14 中出し後" />
         </div>
 
         <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
-    </div>
-
-    <!-- Phần chứa ảnh lớn -->
-    <div class="large-image-container" id="largeImageContainer">
-        <button class="close-btn" onclick="closeImage()">Đóng</button>
-        <img id="largeImage" src="" alt="Ảnh lớn">
     </div>
 
     <script>
@@ -126,7 +102,7 @@
             1: {
                 title: "Eliza's Secret Potion",
                 image: "Castle.png",
-                description: "<p>Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚</p>"
+                description: "Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚"
             },
             2: {
                 title: "Game 2",
@@ -154,7 +130,7 @@
             if (game) {
                 document.getElementById("game-title").textContent = game.title;
                 document.getElementById("game-image").src = game.image;
-                document.getElementById("game-description").innerHTML = game.description;
+                document.getElementById("game-description").textContent = game.description;
             } else {
                 document.querySelector(".content").innerHTML = "<h1>Game không tồn tại</h1>";
             }
@@ -172,22 +148,6 @@
                 alert("Bạn cần đăng nhập để tải game này!");
                 window.location.href = "login.html";
             }
-        }
-
-        // Mở ảnh lớn
-        function openImage(imageSrc) {
-            const largeImageContainer = document.getElementById("largeImageContainer");
-            const largeImage = document.getElementById("largeImage");
-
-            // Cập nhật ảnh lớn và hiển thị nó
-            largeImage.src = imageSrc;
-            largeImageContainer.style.display = "flex";
-        }
-
-        // Đóng ảnh lớn
-        function closeImage() {
-            const largeImageContainer = document.getElementById("largeImageContainer");
-            largeImageContainer.style.display = "none";
         }
 
         // Chạy khi tải trang
