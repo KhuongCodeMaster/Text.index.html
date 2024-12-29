@@ -16,7 +16,7 @@
             margin-top: 20px;
         }
         .menu {
-            display: none; /* Ẩn menu ban đầu */
+            display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
@@ -39,74 +39,106 @@
         .menu-item:hover {
             background: #f0f0f0;
         }
-        .form-container {
-            text-align: center;
-            padding: 50px;
+        .auth {
+            position: fixed;
+            top: 10px;
+            right: 10px;
         }
-        .form-container input {
-            margin: 10px;
-            padding: 10px;
-            width: 250px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .form-container button {
-            padding: 10px 20px;
+        .auth button {
+            padding: 10px 15px;
+            margin-left: 5px;
             background: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .form-container button:hover {
+        .auth button:hover {
             background: #0056b3;
+        }
+        #notification {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #notification button {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Thư Viện Game</h1>
 
-    <!-- Form Đăng Nhập -->
-    <div class="form-container" id="login-form">
-        <h2>Đăng Nhập</h2>
-        <input type="text" id="username" placeholder="Tên đăng nhập" required>
-        <input type="password" id="password" placeholder="Mật khẩu" required>
-        <button onclick="login()">Đăng Nhập</button>
-        <p id="error-message" style="color: red; display: none;">Sai tên đăng nhập hoặc mật khẩu!</p>
+    <!-- Auth Buttons -->
+    <div class="auth">
+        <button onclick="showLogin()">Đăng Nhập</button>
+        <button onclick="showRegister()">Đăng Ký</button>
     </div>
 
     <!-- Menu Game -->
     <div class="menu" id="menu">
-        <a class="menu-item" href="2_index.html">
+        <a class="menu-item" href="#" onclick="downloadGame()">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
         </a>
-        <a class="menu-item" href="game2/index.html">
+        <a class="menu-item" href="#" onclick="downloadGame()">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
         </a>
-        <!-- Thêm các menu game khác -->
     </div>
 
+    <!-- Notification -->
+    <div id="notification">
+        <p>Bạn phải đăng nhập để tải game!</p>
+        <button onclick="hideNotification()">OK</button>
+    </div>
+
+    <!-- Script -->
     <script>
-        // Dữ liệu tài khoản mẫu
-        const userAccounts = {
-            username: "admin",
-            password: "123456"
-        };
+        // Biến để lưu trạng thái đăng nhập
+        let isLoggedIn = false;
 
-        function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            if (username === userAccounts.username && password === userAccounts.password) {
-                // Ẩn form đăng nhập, hiển thị menu
-                document.getElementById("login-form").style.display = "none";
-                document.getElementById("menu").style.display = "flex";
+        // Hiển thị thông báo khi chưa đăng nhập mà tải game
+        function downloadGame() {
+            if (!isLoggedIn) {
+                document.getElementById('notification').style.display = 'block';
             } else {
-                // Hiển thị thông báo lỗi
-                document.getElementById("error-message").style.display = "block";
+                alert("Đang tải game...");
             }
+        }
+
+        // Ẩn thông báo
+        function hideNotification() {
+            document.getElementById('notification').style.display = 'none';
+        }
+
+        // Hiển thị form đăng nhập
+        function showLogin() {
+            const username = prompt("Nhập tên đăng nhập:");
+            const password = prompt("Nhập mật khẩu:");
+            
+            // Kiểm tra đăng nhập (mẫu)
+            if (username === "user" && password === "1234") {
+                alert("Đăng nhập thành công!");
+                isLoggedIn = true;
+            } else {
+                alert("Sai tên đăng nhập hoặc mật khẩu!");
+            }
+        }
+
+        // Hiển thị form đăng ký
+        function showRegister() {
+            const newUsername = prompt("Nhập tên đăng ký:");
+            const newPassword = prompt("Nhập mật khẩu:");
+            alert(`Tài khoản ${newUsername} đã được đăng ký thành công!`);
         }
     </script>
 </body>
