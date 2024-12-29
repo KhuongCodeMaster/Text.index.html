@@ -288,11 +288,27 @@
         }
 
         function deleteComment(index) {
-            let comments = JSON.parse(localStorage.getItem("comments")) || [];
-            comments.splice(index, 1);
-            localStorage.setItem("comments", JSON.stringify(comments));
-            displayComments();
-        }
+    let comments = JSON.parse(localStorage.getItem("comments")) || [];
+    const currentUsername = localStorage.getItem('username'); // Lấy tên người dùng hiện tại
+
+    // Kiểm tra nếu người dùng không đăng nhập hoặc bình luận không phải của họ
+    if (!currentUsername) {
+        alert("Bạn cần đăng nhập để xóa bình luận!");
+        return;
+    }
+
+    const comment = comments[index];
+    
+    if (comment.username !== currentUsername) {
+        alert("Bạn chỉ có thể xóa bình luận của chính mình!");
+        return;
+    }
+
+    // Xóa bình luận nếu người dùng là người đăng bài
+    comments.splice(index, 1);
+    localStorage.setItem("comments", JSON.stringify(comments));
+    displayComments();
+}
 
         document.addEventListener("DOMContentLoaded", function() {
             const username = localStorage.getItem('username');
