@@ -4,68 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
 </head>
 <body>
-    <div class="form-container">
+    <div>
         <h2>Đăng Nhập</h2>
-        <form onsubmit="loginUser(event)">
-            <input type="text" id="username" placeholder="Tên tài khoản" required>
-            <input type="password" id="password" placeholder="Mật khẩu" required>
-            <button type="submit">Đăng Nhập</button>
-        </form>
+        <input type="text" id="username" placeholder="Nhập tên người dùng" required>
+        <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+        <button onclick="login()">Đăng Nhập</button>
     </div>
 
     <script>
-        function loginUser(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+        function login() {
+            var username = document.getElementById("username").value;  // Lấy tên người dùng từ input
+            var password = document.getElementById("password").value;  // Lấy mật khẩu từ input
 
-            // Kiểm tra thông tin đăng nhập từ LocalStorage
-            const user = JSON.parse(localStorage.getItem("user"));
-
-            if (user && user.username === username && user.password === password) {
+            if (username && password) {
+                // Kiểm tra nếu đã nhập tên người dùng và mật khẩu
+                localStorage.setItem("username", username);  // Lưu tên người dùng vào localStorage
+                localStorage.setItem("isLoggedIn", "true");  // Đánh dấu đã đăng nhập
                 alert("Đăng nhập thành công!");
-                localStorage.setItem("isLoggedIn", "true");
-                window.location.href = "index.html";
+
+                // Chuyển hướng về trang chính sau khi đăng nhập
+                window.location.href = "index.html";  // Hoặc trang bạn muốn chuyển hướng
             } else {
-                alert("Sai tên tài khoản hoặc mật khẩu!");
+                alert("Vui lòng nhập đầy đủ thông tin!");
             }
         }
     </script>
