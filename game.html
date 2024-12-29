@@ -78,6 +78,53 @@
         .lightbox:target {
             display: flex;
         }
+        .comment-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            color: #fff;
+        }
+        .comment-section textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #333;
+            color: #fff;
+        }
+        .comment-section button {
+            background: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .comment-section button:hover {
+            background: #0056b3;
+        }
+        #comment-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+        .comment .username {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .comment .content {
+            margin-top: 5px;
+            color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -113,6 +160,16 @@
         <!-- Nút tải game -->
         <h2 style="margin-top: 30px;">Link Tải Game:</h2>
         <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
+
+        <!-- Phần bình luận -->
+        <div class="comment-section">
+            <h2>Bình Luận:</h2>
+            <textarea id="comment-input" rows="4" placeholder="Viết bình luận của bạn..."></textarea>
+            <button onclick="postComment()">Đăng Bình Luận</button>
+            <div id="comment-list">
+                <!-- Các bình luận sẽ hiển thị ở đây -->
+            </div>
+        </div>
     </div>
 
     <!-- Lightbox -->
@@ -162,8 +219,55 @@
             lightbox.style.display = "none";
         });
 
+        // Hàm đăng bình luận
+        function postComment() {
+            const commentInput = document.getElementById("comment-input");
+            const commentList = document.getElementById("comment-list");
+            const username = localStorage.getItem("username") || "Khách";
+
+            if (commentInput.value.trim() === "") {
+                alert("Vui lòng nhập nội dung bình luận!");
+                return;
+            }
+
+            // Tạo bình luận mới
+            const comment = {
+                username: username,
+                content: commentInput.value,
+                time: new Date().toLocaleString(),
+            };
+
+            // Lưu vào localStorage
+            const existingComments = JSON.parse(localStorage.getItem("comments")) || [];
+            existingComments.push(comment);
+            localStorage.setItem("comments", JSON.stringify(existingComments));
+
+            // Cập nhật giao diện
+            addCommentToUI(comment);
+            commentInput.value = ""; // Xóa nội dung trong ô nhập
+        }
+
+        // Hiển thị bình luận trên giao diện
+        function addCommentToUI(comment) {
+            const commentList = document.getElementById("comment-list");
+            const commentElement = document.createElement("div");
+            commentElement.classList.add("comment");
+            commentElement.innerHTML = `
+                <div class="username">${comment.username} <span style="font-size: 12px; color: #aaa;">(${comment.time})</span></div>
+                <div class="content">${comment.content}</div>
+            `;
+            commentList.appendChild(commentElement);
+        }
+
+        // Tải tất cả bình luận từ localStorage khi trang được tải
+        function loadComments() {
+            const existingComments = JSON.parse(localStorage.getItem("comments")) || [];
+            existingComments.forEach(addCommentToUI);
+        }
+
         // Chạy khi tải trang
         checkLoginStatus();
+        loadComments();
     </script>
 </body>
 </html>
