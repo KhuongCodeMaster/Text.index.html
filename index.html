@@ -46,20 +46,21 @@
             padding: 20px;
         }
         .menu-item {
-            position: relative;
-            background: #222; /* Nền menu đen xám */
-            margin: 10px;
-            padding: 10px;
-            width: 200px;
-            height: 250px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    position: relative;
+    background: url('Castle.png') no-repeat center center;
+    background-size: contain; /* Đảm bảo ảnh không bị cắt xén mà vừa với phần tử */
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    height: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
         .menu-item:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
