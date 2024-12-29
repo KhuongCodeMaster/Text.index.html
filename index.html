@@ -55,6 +55,18 @@
         .menu-item:hover {
             background: #f0f0f0;
         }
+        .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -63,19 +75,60 @@
         <div>
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
+            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
         </div>
     </div>
 
     <h1>Danh Sách Game</h1>
     <div class="menu">
-        <a class="menu-item" href="2_index.html">
+        <div class="menu-item">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
-        </a>
-        <a class="menu-item" href="game2/index.html">
+            <a href="2_index.html" class="button">Thông Tin</a>
+            <a href="#" class="button" onclick="downloadGame(event, 'Game 1')">Tải Game</a>
+        </div>
+        <div class="menu-item">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
-        </a>
+            <a href="game2/index.html" class="button">Thông Tin</a>
+            <a href="#" class="button" onclick="downloadGame(event, 'Game 2')">Tải Game</a>
+        </div>
     </div>
+
+    <script>
+        // Kiểm tra trạng thái đăng nhập
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const logoutButton = document.getElementById("logout");
+
+            if (isLoggedIn) {
+                logoutButton.style.display = "inline-block";
+            }
+        }
+
+        // Đăng xuất
+        document.getElementById("logout").addEventListener("click", function () {
+            localStorage.setItem("isLoggedIn", "false");
+            alert("Bạn đã đăng xuất!");
+            window.location.reload();
+        });
+
+        // Xử lý tải game
+        function downloadGame(event, gameName) {
+            event.preventDefault();
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+            if (isLoggedIn) {
+                alert(`Bắt đầu tải ${gameName}!`);
+                // Chuyển sang link tải thực tế ở đây nếu cần
+            } else {
+                alert("Bạn cần đăng nhập để tải game này!");
+                window.location.href = "login.html";
+            }
+        }
+
+        // Chạy kiểm tra khi tải trang
+        checkLoginStatus();
+    </script>
 </body>
 </html>
