@@ -231,6 +231,7 @@ function submitComment() {
     comments.push(comment);
     localStorage.setItem("comments", JSON.stringify(comments));
 
+    console.log("Bình luận đã được lưu:", comment); // Kiểm tra bình luận đã được lưu chưa
     displayComments();
     document.getElementById("comment-username").value = "";
     document.getElementById("comment-text").value = "";
@@ -241,12 +242,15 @@ function displayComments() {
     commentsList.innerHTML = "";
 
     const comments = JSON.parse(localStorage.getItem("comments")) || [];
+    console.log("Danh sách bình luận:", comments); // Kiểm tra các bình luận đã được lấy từ localStorage
+
     if (comments.length === 0) {
         commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
         return;
     }
 
     const loggedInUsername = document.getElementById("username-display").textContent;
+    console.log("Tên người dùng đang đăng nhập:", loggedInUsername); // Kiểm tra tên người dùng
 
     comments.forEach(comment => {
         const commentElement = document.createElement("div");
@@ -269,8 +273,12 @@ function deleteComment(timestamp) {
     comments = comments.filter(comment => comment.timestamp !== timestamp); // Xoá bình luận theo timestamp
     localStorage.setItem("comments", JSON.stringify(comments));
 
+    console.log("Danh sách bình luận sau khi xóa:", comments); // Kiểm tra lại danh sách bình luận sau khi xóa
     displayComments(); // Cập nhật lại danh sách bình luận sau khi xoá
 }
+
+// Khi trang được tải, gọi displayComments để hiển thị bình luận
+document.addEventListener("DOMContentLoaded", displayComments);
 
             // Pagination controls
             let paginationHTML = "";
