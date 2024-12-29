@@ -99,6 +99,9 @@
             padding: 10px;
             margin: 5px 0;
             border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .comment-item .username {
             font-weight: bold;
@@ -117,6 +120,20 @@
         .lightbox img {
             max-width: 90%;
             max-height: 90%;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination button {
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background: #0056b3;
         }
     </style>
 </head>
@@ -162,6 +179,7 @@
             <button onclick="submitComment()">Gửi Bình Luận</button>
         </div>
         <div class="comments-list" id="comments-list"></div>
+        <div class="pagination" id="pagination"></div>
     </div>
 
     <div id="lightbox" class="lightbox">
@@ -169,6 +187,9 @@
     </div>
 
     <script>
+        let currentPage = 1;
+        const commentsPerPage = 10;
+
         // Xử lý Lightbox cho ảnh
         const lightbox = document.getElementById("lightbox");
         const lightboxImg = document.getElementById("lightbox-img");
@@ -217,24 +238,53 @@
 
         function displayComments() {
             const commentsList = document.getElementById("comments-list");
+            const pagination = document.getElementById("pagination");
             commentsList.innerHTML = "";
 
             const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            const totalPages = Math.ceil(comments.length / commentsPerPage);
+            const startIndex = (currentPage - 1) * commentsPerPage;
+            const endIndex = Math.min(startIndex + commentsPerPage, comments.length);
+
             if (comments.length === 0) {
                 commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
                 return;
             }
 
-            comments.forEach(comment => {
+            for (let i = startIndex; i < endIndex; i++) {
+                const comment = comments[i];
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("comment-item");
                 commentElement.innerHTML = `
                     <div class="username">${comment.username}</div>
                     <div class="timestamp">${comment.timestamp}</div>
                     <div class="text">${comment.text}</div>
+                    <button onclick="deleteComment(${i})">Xóa</button>
                 `;
                 commentsList.appendChild(commentElement);
-            });
+            }
+
+            // Pagination controls
+            let paginationHTML = "";
+            if (currentPage > 1) {
+                paginationHTML += `<button onclick="changePage(${currentPage - 1})">Trang Trước</button>`;
+            }
+            if (currentPage < totalPages) {
+                paginationHTML += `<button onclick="changePage(${currentPage + 1})">Trang Sau</button>`;
+            }
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            displayComments();
+        }
+
+        function deleteComment(index) {
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.splice(index, 1);
+            localStorage.setItem("comments", JSON.stringify(comments));
+            displayComments();
         }
 
         document.addEventListener("DOMContentLoaded", displayComments);
