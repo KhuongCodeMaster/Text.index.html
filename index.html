@@ -85,19 +85,21 @@
 
     <!-- Menu Game -->
     <div class="menu" id="menu">
-        <a class="menu-item" href="#" onclick="downloadGame()">
+        <div class="menu-item">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
-        </a>
-        <a class="menu-item" href="#" onclick="downloadGame()">
+            <button onclick="downloadGame()">Tải Game</button>
+        </div>
+        <div class="menu-item">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
-        </a>
+            <button onclick="downloadGame()">Tải Game</button>
+        </div>
     </div>
 
     <!-- Notification -->
     <div id="notification">
-        <p>Bạn phải đăng nhập để tải game!</p>
+        <p>Bạn phải đăng nhập hoặc đăng ký để tải game này!</p>
         <button onclick="hideNotification()">OK</button>
     </div>
 
