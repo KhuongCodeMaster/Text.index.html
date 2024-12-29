@@ -16,7 +16,7 @@
             margin-top: 20px;
         }
         .menu {
-            display: flex;
+            display: none; /* Ẩn menu ban đầu */
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
@@ -39,11 +39,44 @@
         .menu-item:hover {
             background: #f0f0f0;
         }
+        .form-container {
+            text-align: center;
+            padding: 50px;
+        }
+        .form-container input {
+            margin: 10px;
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Thư Viện Game</h1>
-    <div class="menu">
+
+    <!-- Form Đăng Nhập -->
+    <div class="form-container" id="login-form">
+        <h2>Đăng Nhập</h2>
+        <input type="text" id="username" placeholder="Tên đăng nhập" required>
+        <input type="password" id="password" placeholder="Mật khẩu" required>
+        <button onclick="login()">Đăng Nhập</button>
+        <p id="error-message" style="color: red; display: none;">Sai tên đăng nhập hoặc mật khẩu!</p>
+    </div>
+
+    <!-- Menu Game -->
+    <div class="menu" id="menu">
         <a class="menu-item" href="2_index.html">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
@@ -54,5 +87,27 @@
         </a>
         <!-- Thêm các menu game khác -->
     </div>
+
+    <script>
+        // Dữ liệu tài khoản mẫu
+        const userAccounts = {
+            username: "admin",
+            password: "123456"
+        };
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === userAccounts.username && password === userAccounts.password) {
+                // Ẩn form đăng nhập, hiển thị menu
+                document.getElementById("login-form").style.display = "none";
+                document.getElementById("menu").style.display = "flex";
+            } else {
+                // Hiển thị thông báo lỗi
+                document.getElementById("error-message").style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
