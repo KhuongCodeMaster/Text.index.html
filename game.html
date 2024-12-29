@@ -211,6 +211,13 @@
             alert("Đang tải game... Vui lòng chờ.");
         }
 
+        // Xử lý đăng nhập và đăng xuất
+        function logout() {
+            localStorage.removeItem('username');
+            document.getElementById('logout').style.display = 'none';
+            document.getElementById('username-display').textContent = 'Chưa đăng nhập';
+        }
+
         // Xử lý bình luận
         function submitComment() {
             const username = document.getElementById("comment-username").value.trim();
@@ -287,7 +294,14 @@
             displayComments();
         }
 
-        document.addEventListener("DOMContentLoaded", displayComments);
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('username-display').textContent = `Chào, ${username}`;
+                document.getElementById('logout').style.display = 'block';
+            }
+            displayComments();
+        });
     </script>
 </body>
 </html>
