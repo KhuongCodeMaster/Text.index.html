@@ -5,63 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        /* Background và kiểu chung cho mục đăng ký */
         .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        input {
+            background: linear-gradient(135deg, #6e7cfa, #3b4cb8);
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #007BFF;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
-        button:hover {
-            background: #0056b3;
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Các trường nhập liệu */
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-container input:focus {
+            border-color: #6e7cfa;
+            outline: none;
+        }
+
+        /* Nút Đăng Ký */
+        .form-container button {
+            padding: 12px;
+            width: 100%;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hiệu ứng chuyển động */
+        button, input {
+            transform: translateY(10px);
+            opacity: 0;
+            animation: moveUp 0.6s forwards;
+        }
+
+        @keyframes moveUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Màu nền cho các mục tiêu */
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container a {
+            text-decoration: none;
+            color: #ffffff;
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .form-container a:hover {
+            color: #6e7cfa;
         }
     </style>
 </head>
 <body>
+    <!-- Mục đăng ký -->
     <div class="form-container">
         <h2>Đăng Ký</h2>
-        <form onsubmit="registerUser(event)">
-            <input type="text" id="username" placeholder="Tên tài khoản" required>
-            <input type="password" id="password" placeholder="Mật khẩu" required>
+        <form id="register-form">
+            <input type="text" id="username-register" placeholder="Tên đăng nhập" required>
+            <input type="password" id="password-register" placeholder="Mật khẩu" required>
             <button type="submit">Đăng Ký</button>
         </form>
+        <p>Đã có tài khoản? <a href="login.html">Đăng nhập ngay!</a></p>
     </div>
-
-    <script>
-        function registerUser(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            // Lưu thông tin đăng ký vào LocalStorage
-            localStorage.setItem("user", JSON.stringify({ username, password }));
-            alert("Đăng ký thành công! Bây giờ bạn có thể đăng nhập.");
-            window.location.href = "login.html";
-        }
-    </script>
 </body>
 </html>
