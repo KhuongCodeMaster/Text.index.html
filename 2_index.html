@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Eliza's Secret Potion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .menu img {
+            width: 500px; /* Rộng hơn */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .menu img:hover {
+            transform: scale(1.1);
+        }
+        .info {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .info h2 {
+            text-align: center;
+            color: #ffa500;
+        }
+        .info p {
+            line-height: 1.8;
+        }
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .images img {
+            width: 300px; /* Rộng hơn */
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        .images img:hover {
+            transform: scale(1.2);
+        }
+        .download {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .download a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #00ff00;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .download a:hover {
+            background: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Eliza's Secret Potion</h1>
+    <div class="menu">
+        <img src="images/Castle.png" alt="Castle" onclick="showInfo()">
+    </div>
+    <div class="info" id="info" style="display: none;">
+        <h2>Thông Tin Game</h2>
+        <p><strong>Game:</strong> Eliza's Secret Potion</p>
+        <p><strong>Mô Tả:</strong> Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là "Secret Potion." Trong hành trình, bạn sẽ khám phá các cảnh đầy ma mị và trải nghiệm những điều huyền bí trong thế giới phép thuật.</p>
+        <p><strong>Game Có Ngon Không:</strong> Có 🥵</p>
+        
+        <h3>Ảnh Chi Tiết:</h3>
+        <div class="images">
+            <img src="images/悪夢.png" alt="Ảnh 1: Cảnh Ác Mộng">
+            <img src="images/C-2　全身.png" alt="Ảnh 2: Cảnh Toàn Thân">
+            <img src="images/D-11 深く.png" alt="Ảnh 3: Cảnh Sâu">
+            <img src="images/B-7　中出し.png" alt="Ảnh 4: Cảnh Trung Bình">
+            <img src="images/E-8 深い.png" alt="Ảnh 5: Cảnh Sâu Hơn">
+            <img src="images/F-1 全体.png" alt="Ảnh 6: Toàn Cảnh">
+        </div>
+        
+        <div class="download">
+            <a href="https://example.com/eliza-secret-potion" target="_blank">Tải Game Tại Đây</a>
+        </div>
+    </div>
+
+    <script>
+        function showInfo() {
+            const info = document.getElementById('info');
+            info.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
