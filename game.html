@@ -3,32 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Image Viewer</title>
+    <title>Thông Tin Game</title>
     <style>
-        /* CSS cho phần hiển thị ảnh */
         body {
             font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
+            margin: 0;
+            padding: 0;
+            background: #000; /* Nền đen */
+            color: #fff; /* Văn bản màu trắng */
+        }
+        .navbar {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
             text-align: center;
         }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 20px;
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer; /* Thêm con trỏ khi hover lên ảnh */
         }
-
-        .image-container img {
-            width: 150px;
-            height: 150px;
-            cursor: pointer;
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
         }
-
-        /* Mô tả ảnh lớn */
+        .button:hover {
+            background: #0056b3;
+        }
+        /* CSS cho phần hiển thị ảnh lớn */
         .large-image-container {
             display: none;
             position: fixed;
@@ -58,21 +79,39 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <span>Thông Tin Game</span>
+        <div>
+            <a href="index.html">Trang Chủ</a>
+            <a href="register.html">Đăng Ký</a>
+            <a href="login.html">Đăng Nhập</a>
+            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
+        </div>
+    </div>
 
-    <h1>Xem Ảnh Game</h1>
+    <div class="content">
+        <h1 id="game-title">Tên Game</h1>
+        <img id="game-image" src="" alt="Ảnh Game" onclick="openImage('game-image')">
+        <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
 
-    <div class="image-container">
-        <!-- Các ảnh bạn muốn hiển thị -->
-        <img src="悪夢.png" alt="Ảnh 1" onclick="openImage('悪夢.png')">
-        <img src="C-2 全身.png" alt="Ảnh 2" onclick="openImage('C-2 全身.png')">
-        <img src="F-1 全体.png" alt="Ảnh 3" onclick="openImage('F-1 全体.png')">
-        <img src="D-11 深く.png" alt="Ảnh 4" onclick="openImage('D-11 深く.png')">
-        <img src="B-7 中出し.png" alt="Ảnh 5" onclick="openImage('B-7 中出し.png')">
-        <img src="E-8 深い.png" alt="Ảnh 6" onclick="openImage('E-8 深い.png')">
+        <!-- Các ảnh của game -->
+        <h2>Thể Loại RPGM 18+</h2>
+        <h2>Game:Hoàn Thành</h2>
+        <h2>Game Có Ngon Không:Ngon 🥵</h2>
+        <h2>Show Một Chút Ảnh 🌚:</h2>
+        <div id="game-images">
+            <img src="悪夢.png" alt="Ảnh 1" onclick="openImage('悪夢.png')" />
+            <img src="C-2 全身.png" alt="Ảnh 2" onclick="openImage('C-2 全身.png')" />
+            <img src="F-1 全体.png" alt="Ảnh 3" onclick="openImage('F-1 全体.png')" />
+            <img src="D-11 深く.png" alt="Ảnh 4" onclick="openImage('D-11 深く.png')" />
+            <img src="B-7 中出し.png" alt="Ảnh 5" onclick="openImage('B-7 中出し.png')" />
+            <img src="E-8 深い.png" alt="Ảnh 6" onclick="openImage('E-8 深い.png')" />
+        </div>
+
+        <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
     </div>
 
     <!-- Phần chứa ảnh lớn -->
@@ -82,7 +121,60 @@
     </div>
 
     <script>
-        // Hàm mở ảnh lớn
+        // Danh sách thông tin game
+        const gameData = {
+            1: {
+                title: "Eliza's Secret Potion",
+                image: "Castle.png",
+                description: "<p>Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚</p>"
+            },
+            2: {
+                title: "Game 2",
+                image: "game2/image2.jpg",
+                description: "Đây là mô tả của Game 2."
+            }
+        };
+
+        // Kiểm tra trạng thái đăng nhập
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const logoutButton = document.getElementById("logout");
+
+            if (isLoggedIn) {
+                logoutButton.style.display = "inline-block";
+            }
+        }
+
+        // Hiển thị thông tin game dựa trên ID
+        function loadGameInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get("id");
+            const game = gameData[gameId];
+
+            if (game) {
+                document.getElementById("game-title").textContent = game.title;
+                document.getElementById("game-image").src = game.image;
+                document.getElementById("game-description").innerHTML = game.description;
+            } else {
+                document.querySelector(".content").innerHTML = "<h1>Game không tồn tại</h1>";
+            }
+        }
+
+        // Xử lý tải game
+        function downloadGame(event) {
+            event.preventDefault();
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+            if (isLoggedIn) {
+                alert("Bắt đầu tải game!");
+                // Thực hiện tải game thực tế ở đây
+            } else {
+                alert("Bạn cần đăng nhập để tải game này!");
+                window.location.href = "login.html";
+            }
+        }
+
+        // Mở ảnh lớn
         function openImage(imageSrc) {
             const largeImageContainer = document.getElementById("largeImageContainer");
             const largeImage = document.getElementById("largeImage");
@@ -92,11 +184,15 @@
             largeImageContainer.style.display = "flex";
         }
 
-        // Hàm đóng ảnh lớn
+        // Đóng ảnh lớn
         function closeImage() {
             const largeImageContainer = document.getElementById("largeImageContainer");
             largeImageContainer.style.display = "none";
         }
+
+        // Chạy khi tải trang
+        checkLoginStatus();
+        loadGameInfo();
     </script>
 </body>
 </html>
