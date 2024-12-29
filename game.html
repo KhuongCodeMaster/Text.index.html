@@ -212,57 +212,65 @@
         }
 
         // Xử lý bình luận
-        function submitComment() {
-            const username = document.getElementById("comment-username").value.trim();
-            const text = document.getElementById("comment-text").value.trim();
+function submitComment() {
+    const username = document.getElementById("comment-username").value.trim();
+    const text = document.getElementById("comment-text").value.trim();
 
-            if (!username || !text) {
-                alert("Bạn phải điền tên và nội dung bình luận!");
-                return;
+    if (!username || !text) {
+        alert("Bạn phải điền tên và nội dung bình luận!");
+        return;
+    }
+
+    const comment = {
+        username: username,
+        text: text,
+        timestamp: new Date().toLocaleString()
+    };
+
+    let comments = JSON.parse(localStorage.getItem("comments")) || [];
+    comments.push(comment);
+    localStorage.setItem("comments", JSON.stringify(comments));
+
+    displayComments();
+    document.getElementById("comment-username").value = "";
+    document.getElementById("comment-text").value = "";
+}
+
+function displayComments() {
+    const commentsList = document.getElementById("comments-list");
+    commentsList.innerHTML = "";
+
+    const comments = JSON.parse(localStorage.getItem("comments")) || [];
+    if (comments.length === 0) {
+        commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
+        return;
+    }
+
+    const loggedInUsername = document.getElementById("username-display").textContent;
+
+    comments.forEach(comment => {
+        const commentElement = document.createElement("div");
+        commentElement.classList.add("comment-item");
+        commentElement.innerHTML = `
+            <div class="username">${comment.username}</div>
+            <div class="timestamp">${comment.timestamp}</div>
+            <div class="text">${comment.text}</div>
+            ${loggedInUsername && loggedInUsername === comment.username ? 
+                `<button onclick="deleteComment('${comment.timestamp}')">Xoá</button>` : ''
             }
+        `;
+        commentsList.appendChild(commentElement);
+    });
+}
 
-            const comment = {
-                username: username,
-                text: text,
-                timestamp: new Date().toLocaleString()
-            };
+// Xóa bình luận của người dùng
+function deleteComment(timestamp) {
+    let comments = JSON.parse(localStorage.getItem("comments")) || [];
+    comments = comments.filter(comment => comment.timestamp !== timestamp); // Xoá bình luận theo timestamp
+    localStorage.setItem("comments", JSON.stringify(comments));
 
-            let comments = JSON.parse(localStorage.getItem("comments")) || [];
-            comments.push(comment);
-            localStorage.setItem("comments", JSON.stringify(comments));
-
-            displayComments();
-            document.getElementById("comment-username").value = "";
-            document.getElementById("comment-text").value = "";
-        }
-
-        function displayComments() {
-            const commentsList = document.getElementById("comments-list");
-            const pagination = document.getElementById("pagination");
-            commentsList.innerHTML = "";
-
-            const comments = JSON.parse(localStorage.getItem("comments")) || [];
-            const totalPages = Math.ceil(comments.length / commentsPerPage);
-            const startIndex = (currentPage - 1) * commentsPerPage;
-            const endIndex = Math.min(startIndex + commentsPerPage, comments.length);
-
-            if (comments.length === 0) {
-                commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
-                return;
-            }
-
-            for (let i = startIndex; i < endIndex; i++) {
-                const comment = comments[i];
-                const commentElement = document.createElement("div");
-                commentElement.classList.add("comment-item");
-                commentElement.innerHTML = `
-                    <div class="username">${comment.username}</div>
-                    <div class="timestamp">${comment.timestamp}</div>
-                    <div class="text">${comment.text}</div>
-                    <button onclick="deleteComment(${i})">Xóa</button>
-                `;
-                commentsList.appendChild(commentElement);
-            }
+    displayComments(); // Cập nhật lại danh sách bình luận sau khi xoá
+}
 
             // Pagination controls
             let paginationHTML = "";
