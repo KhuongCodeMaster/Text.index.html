@@ -5,11 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
     <style>
-        /* CSS giống như trước */
+        /* Thêm hiệu ứng cho trang */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #111; /* Màu nền đen */
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hình nền chuyển động */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://example.com/your-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(5px);
+            z-index: -1;
+            animation: moveBackground 10s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Nền mờ để dễ nhìn các ô input */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Hiệu ứng fadeIn */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        p {
+            color: #fff;
+            text-align: center;
+        }
+
+        a {
+            color: #66ccff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <!-- Mục đăng nhập -->
+    <div class="background"></div> <!-- Hình nền chuyển động -->
     <div class="form-container">
         <h2>Đăng Nhập</h2>
         <form id="login-form">
