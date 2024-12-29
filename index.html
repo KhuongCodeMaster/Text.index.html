@@ -11,6 +11,22 @@
             padding: 0;
             background: #f9f9f9;
         }
+        .navbar {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
         h1 {
             text-align: center;
             margin-top: 20px;
@@ -42,7 +58,15 @@
     </style>
 </head>
 <body>
-    <h1>Thư Viện Game</h1>
+    <div class="navbar">
+        <span>Thư Viện Game</span>
+        <div>
+            <a href="register.html">Đăng Ký</a>
+            <a href="login.html">Đăng Nhập</a>
+        </div>
+    </div>
+
+    <h1>Danh Sách Game</h1>
     <div class="menu">
         <a class="menu-item" href="2_index.html">
             <img src="Castle.png" alt="Game 1">
