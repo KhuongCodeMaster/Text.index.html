@@ -9,8 +9,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #000; /* Nền đen */
-            color: #fff; /* Văn bản màu trắng */
+            background: #000;
+            color: #fff;
         }
         .navbar {
             background: #007BFF;
@@ -51,8 +51,8 @@
         }
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Hai cột */
-            gap: 10px; /* Khoảng cách giữa các ảnh */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             margin-top: 20px;
         }
         .image-grid img {
@@ -79,51 +79,33 @@
             display: flex;
         }
         .comment-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 10px;
-            color: #fff;
+            margin-top: 40px;
         }
         .comment-section textarea {
-            width: 100%;
+            width: 80%;
+            height: 80px;
+            margin-top: 10px;
             padding: 10px;
-            border: 1px solid #444;
             border-radius: 5px;
-            margin-bottom: 10px;
-            background: #333;
-            color: #fff;
+            border: 1px solid #ccc;
+            color: #000;
         }
         .comment-section button {
+            margin-top: 10px;
+            padding: 10px 15px;
             background: #007BFF;
             color: white;
-            padding: 10px 15px;
-            border: none;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
         }
-        .comment-section button:hover {
-            background: #0056b3;
-        }
-        #comment-list {
+        .comment-list {
             margin-top: 20px;
-            max-height: 300px;
-            overflow-y: auto;
+            text-align: left;
         }
-        .comment {
-            margin-bottom: 10px;
+        .comment-item {
             padding: 10px;
-            background: #2a2a2a;
+            margin-bottom: 10px;
+            background: #222;
             border-radius: 5px;
-        }
-        .comment .username {
-            font-weight: bold;
-            color: #007BFF;
-        }
-        .comment .content {
-            margin-top: 5px;
-            color: #ddd;
         }
     </style>
 </head>
@@ -145,7 +127,6 @@
             Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng nâng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚
         </p>
 
-        <!-- Lưới hình ảnh -->
         <h2>Show Một Chút Ảnh 🌚:</h2>
         <div class="image-grid">
             <a href="#img1"><img id="img1" src="悪夢.png" alt="悪夢"></a>
@@ -157,18 +138,17 @@
             <a href="#img7"><img id="img7" src="J-14 中出し後.png" alt="J-14 中出し後"></a>
         </div>
 
-        <!-- Nút tải game -->
         <h2 style="margin-top: 30px;">Link Tải Game:</h2>
         <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
 
-        <!-- Phần bình luận -->
         <div class="comment-section">
             <h2>Bình Luận:</h2>
-            <textarea id="comment-input" rows="4" placeholder="Viết bình luận của bạn..."></textarea>
+            <textarea id="comment-input" placeholder="Nhập bình luận của bạn"></textarea><br>
             <button onclick="postComment()">Đăng Bình Luận</button>
-            <div id="comment-list">
-                <!-- Các bình luận sẽ hiển thị ở đây -->
-            </div>
+        </div>
+
+        <div class="comment-list" id="comment-list">
+            <!-- Bình luận sẽ được hiển thị ở đây -->
         </div>
     </div>
 
@@ -180,15 +160,16 @@
     <script>
         // Kiểm tra trạng thái đăng nhập
         function checkLoginStatus() {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const username = localStorage.getItem("username");
-    const logoutButton = document.getElementById("logout");
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const username = localStorage.getItem("username");
+            const logoutButton = document.getElementById("logout");
 
-    if (isLoggedIn && username) {
-        logoutButton.style.display = "inline-block";
-        document.querySelector(".navbar").innerHTML += `<span>Chào, ${username}!</span>`;
-    }
-}
+            if (isLoggedIn && username) {
+                logoutButton.style.display = "inline-block";
+                document.querySelector(".navbar").innerHTML += `<span>Chào, ${username}!</span>`;
+            }
+        }
+
         // Xử lý tải game
         function downloadGame(event) {
             event.preventDefault();
@@ -196,7 +177,6 @@
 
             if (isLoggedIn) {
                 alert("Bắt đầu tải game!");
-                // Thực hiện tải game thực tế ở đây
             } else {
                 alert("Bạn cần đăng nhập để tải game này!");
                 window.location.href = "login.html";
@@ -220,7 +200,15 @@
             lightbox.style.display = "none";
         });
 
-        // Hàm đăng bình luận
+        // Đăng xuất
+        document.getElementById("logout").addEventListener("click", () => {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("username");
+            alert("Đăng xuất thành công!");
+            window.location.reload();
+        });
+
+        // Đăng bình luận
         function postComment() {
             const commentInput = document.getElementById("comment-input");
             const commentList = document.getElementById("comment-list");
@@ -231,44 +219,41 @@
                 return;
             }
 
-            // Tạo bình luận mới
             const comment = {
                 username: username,
                 content: commentInput.value,
                 time: new Date().toLocaleString(),
             };
 
-            // Lưu vào localStorage
+            // Lưu và hiển thị bình luận
             const existingComments = JSON.parse(localStorage.getItem("comments")) || [];
             existingComments.push(comment);
             localStorage.setItem("comments", JSON.stringify(existingComments));
-
-            // Cập nhật giao diện
             addCommentToUI(comment);
-            commentInput.value = ""; // Xóa nội dung trong ô nhập
+            commentInput.value = "";
         }
 
-        // Hiển thị bình luận trên giao diện
+        // Hiển thị bình luận lên giao diện
         function addCommentToUI(comment) {
             const commentList = document.getElementById("comment-list");
             const commentElement = document.createElement("div");
-            commentElement.classList.add("comment");
+            commentElement.classList.add("comment-item");
             commentElement.innerHTML = `
-                <div class="username">${comment.username} <span style="font-size: 12px; color: #aaa;">(${comment.time})</span></div>
-                <div class="content">${comment.content}</div>
+                <strong>${comment.username}</strong> <span>${comment.time}</span>
+                <p>${comment.content}</p>
             `;
             commentList.appendChild(commentElement);
         }
 
-        // Tải tất cả bình luận từ localStorage khi trang được tải
-        function loadComments() {
-            const existingComments = JSON.parse(localStorage.getItem("comments")) || [];
-            existingComments.forEach(addCommentToUI);
-        }
+        // Hiển thị tất cả bình luận khi tải trang
+        window.onload = function() {
+            const savedComments = JSON.parse(localStorage.getItem("comments")) || [];
+            savedComments.forEach(comment => {
+                addCommentToUI(comment);
+            });
 
-        // Chạy khi tải trang
-        checkLoginStatus();
-        loadComments();
+            checkLoginStatus();
+        }
     </script>
 </body>
 </html>
