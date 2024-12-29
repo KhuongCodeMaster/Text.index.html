@@ -32,22 +32,6 @@
             padding: 20px;
             text-align: center;
         }
-        .content img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .button:hover {
-            background: #0056b3;
-        }
         .image-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* 2 cột */
@@ -58,10 +42,33 @@
         .image-grid img {
             width: 100%;
             border-radius: 5px;
+            cursor: pointer; /* Thêm con trỏ để gợi ý có thể click */
             transition: transform 0.3s;
         }
         .image-grid img:hover {
             transform: scale(1.05); /* Phóng to khi hover */
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+        .lightbox:target {
+            display: flex; /* Hiển thị lightbox khi được chọn */
         }
     </style>
 </head>
@@ -78,81 +85,42 @@
 
     <div class="content">
         <h1 id="game-title">Tên Game</h1>
-        <img id="game-image" src="" alt="Ảnh Game">
         <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
 
         <!-- Lưới hình ảnh -->
         <h2>Show Một Chút Ảnh 🌚:</h2>
         <div class="image-grid" id="game-images">
-            <img src="悪夢.png" alt="悪夢" />
-            <img src="C-2 全身.png" alt="C-2 全身" />
-            <img src="F-1 全体.png" alt="F-1 全体" />
-            <img src="D-11 深く.png" alt="D-11 深く" />
-            <img src="B-7 中出し.png" alt="B-7 中出し" />
-            <img src="E-8 深い.png" alt="E-8 深い" />
-            <img src="J-14 中出し後.png" alt="J-14 中出し後" />
+            <a href="#img1"><img id="img1" src="悪夢.png" alt="悪夢" /></a>
+            <a href="#img2"><img id="img2" src="C-2 全身.png" alt="C-2 全身" /></a>
+            <a href="#img3"><img id="img3" src="F-1 全体.png" alt="F-1 全体" /></a>
+            <a href="#img4"><img id="img4" src="D-11 深く.png" alt="D-11 深く" /></a>
+            <a href="#img5"><img id="img5" src="B-7 中出し.png" alt="B-7 中出し" /></a>
+            <a href="#img6"><img id="img6" src="E-8 深い.png" alt="E-8 深い" /></a>
+            <a href="#img7"><img id="img7" src="J-14 中出し後.png" alt="J-14 中出し後" /></a>
         </div>
-
-        <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
     </div>
 
-    <script>
-        // Danh sách thông tin game
-        const gameData = {
-            1: {
-                title: "Eliza's Secret Potion",
-                image: "Castle.png",
-                description: "Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚"
-            },
-            2: {
-                title: "Game 2",
-                image: "game2/image2.jpg",
-                description: "Đây là mô tả của Game 2."
-            }
-        };
-
-        // Kiểm tra trạng thái đăng nhập
-        function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-            const logoutButton = document.getElementById("logout");
-
-            if (isLoggedIn) {
-                logoutButton.style.display = "inline-block";
-            }
-        }
-
-        // Hiển thị thông tin game dựa trên ID
-        function loadGameInfo() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const gameId = urlParams.get("id");
-            const game = gameData[gameId];
-
-            if (game) {
-                document.getElementById("game-title").textContent = game.title;
-                document.getElementById("game-image").src = game.image;
-                document.getElementById("game-description").textContent = game.description;
-            } else {
-                document.querySelector(".content").innerHTML = "<h1>Game không tồn tại</h1>";
-            }
-        }
-
-        // Xử lý tải game
-        function downloadGame(event) {
-            event.preventDefault();
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-            if (isLoggedIn) {
-                alert("Bắt đầu tải game!");
-                // Thực hiện tải game thực tế ở đây
-            } else {
-                alert("Bạn cần đăng nhập để tải game này!");
-                window.location.href = "login.html";
-            }
-        }
-
-        // Chạy khi tải trang
-        checkLoginStatus();
-        loadGameInfo();
-    </script>
+    <!-- Lightbox -->
+    <div id="img1" class="lightbox">
+        <img src="悪夢.png" alt="悪夢" />
+    </div>
+    <div id="img2" class="lightbox">
+        <img src="C-2 全身.png" alt="C-2 全身" />
+    </div>
+    <div id="img3" class="lightbox">
+        <img src="F-1 全体.png" alt="F-1 全体" />
+    </div>
+    <div id="img4" class="lightbox">
+        <img src="D-11 深く.png" alt="D-11 深く" />
+    </div>
+    <div id="img5" class="lightbox">
+        <img src="B-7 中出し.png" alt="B-7 中出し" />
+    </div>
+    <div id="img6" class="lightbox">
+        <img src="E-8 深い.png" alt="E-8 深い" />
+    </div>
+    <div id="img7" class="lightbox">
+        <img src="J-14 中出し後.png" alt="J-14 中出し後" />
+    </div>
 </body>
 </html>
