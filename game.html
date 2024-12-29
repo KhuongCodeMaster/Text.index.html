@@ -5,7 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông Tin Game</title>
     <style>
-        /* Các style như trước đây */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000; /* Nền đen */
+            color: #fff; /* Văn bản màu trắng */
+        }
+        .navbar {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Hai cột */
+            gap: 10px; /* Khoảng cách giữa các ảnh */
+            margin-top: 20px;
+        }
+        .image-grid img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox:target {
+            display: flex;
+        }
     </style>
 </head>
 <body>
@@ -15,7 +87,7 @@
             <a href="index.html">Trang Chủ</a>
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
-            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
+            <a href="#" id="logout" style="display: none;" onclick="logout()">Đăng Xuất</a>
         </div>
     </div>
 
@@ -26,6 +98,7 @@
             Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng nâng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚
         </p>
 
+        <!-- Lưới hình ảnh -->
         <h2>Show Một Chút Ảnh 🌚:</h2>
         <div class="image-grid">
             <a href="#img1"><img id="img1" src="悪夢.png" alt="悪夢"></a>
@@ -37,18 +110,12 @@
             <a href="#img7"><img id="img7" src="J-14 中出し後.png" alt="J-14 中出し後"></a>
         </div>
 
+        <!-- Nút tải game -->
         <h2 style="margin-top: 30px;">Link Tải Game:</h2>
         <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
 
-        <div class="comment-section">
-            <h2>Bình Luận:</h2>
-            <textarea id="comment-input" placeholder="Nhập bình luận của bạn"></textarea><br>
-            <button onclick="postComment()">Đăng Bình Luận</button>
-        </div>
-
-        <div class="comment-list" id="comment-list">
-            <!-- Bình luận sẽ được hiển thị ở đây -->
-        </div>
+        <!-- Hiển thị tên người dùng đã đăng nhập -->
+        <h3 id="username-display">Chưa đăng nhập</h3>
     </div>
 
     <!-- Lightbox -->
@@ -59,18 +126,30 @@
     <script>
         // Kiểm tra trạng thái đăng nhập và hiển thị tên người dùng
         function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Kiểm tra xem đã đăng nhập hay chưa
-            const username = localStorage.getItem("username");
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Kiểm tra xem đã đăng nhập chưa
+            const username = localStorage.getItem("username"); // Lấy tên người dùng
 
+            // Nếu người dùng đã đăng nhập, hiển thị tên và đăng xuất
             if (isLoggedIn && username) {
-                // Nếu đã đăng nhập, hiển thị tên và nút đăng xuất
-                document.getElementById("logout").style.display = "inline-block"; // Hiển thị nút đăng xuất
-                document.querySelector(".navbar").innerHTML += `<span>Chào, ${username}!</span>`;
+                document.getElementById("username-display").innerText = "Chào, " + username; // Hiển thị tên người dùng
+                document.getElementById("logout").style.display = "inline"; // Hiển thị nút đăng xuất
             } else {
-                // Nếu chưa đăng nhập, ẩn nút đăng xuất và không hiển thị tên
+                // Nếu chưa đăng nhập, không hiển thị tên
+                document.getElementById("username-display").innerText = "Chưa đăng nhập";
                 document.getElementById("logout").style.display = "none"; // Ẩn nút đăng xuất
             }
         }
+
+        // Xử lý đăng xuất
+        function logout() {
+            localStorage.setItem("isLoggedIn", "false");  // Đánh dấu là chưa đăng nhập
+            localStorage.removeItem("username");  // Xóa tên người dùng
+            alert("Đăng xuất thành công!");
+            window.location.href = "login.html";  // Chuyển hướng về trang đăng nhập
+        }
+
+        // Kiểm tra đăng nhập khi tải trang
+        checkLoginStatus();
 
         // Xử lý tải game
         function downloadGame(event) {
@@ -79,66 +158,29 @@
 
             if (isLoggedIn) {
                 alert("Bắt đầu tải game!");
+                // Thực hiện tải game thực tế ở đây
             } else {
                 alert("Bạn cần đăng nhập để tải game này!");
-                window.location.href = "login.html"; // Chuyển hướng tới trang đăng nhập nếu chưa đăng nhập
+                window.location.href = "login.html";
             }
         }
 
-        // Đăng xuất
-        document.getElementById("logout").addEventListener("click", () => {
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("username");
-            alert("Đăng xuất thành công!");
-            window.location.reload(); // Tải lại trang khi đăng xuất
+        // Hiển thị lightbox khi nhấn ảnh
+        const images = document.querySelectorAll(".image-grid img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+
+        images.forEach(img => {
+            img.addEventListener("click", () => {
+                lightbox.style.display = "flex";
+                lightboxImg.src = img.src;
+            });
         });
 
-        // Đăng bình luận
-        function postComment() {
-            const commentInput = document.getElementById("comment-input");
-            const commentList = document.getElementById("comment-list");
-            const username = localStorage.getItem("username") || "Khách";
-
-            if (commentInput.value.trim() === "") {
-                alert("Vui lòng nhập nội dung bình luận!");
-                return;
-            }
-
-            const comment = {
-                username: username,
-                content: commentInput.value,
-                time: new Date().toLocaleString(),
-            };
-
-            // Lưu và hiển thị bình luận
-            const existingComments = JSON.parse(localStorage.getItem("comments")) || [];
-            existingComments.push(comment);
-            localStorage.setItem("comments", JSON.stringify(existingComments));
-            addCommentToUI(comment);
-            commentInput.value = "";
-        }
-
-        // Hiển thị bình luận lên giao diện
-        function addCommentToUI(comment) {
-            const commentList = document.getElementById("comment-list");
-            const commentElement = document.createElement("div");
-            commentElement.classList.add("comment-item");
-            commentElement.innerHTML = `
-                <strong>${comment.username}</strong> <span>${comment.time}</span>
-                <p>${comment.content}</p>
-            `;
-            commentList.appendChild(commentElement);
-        }
-
-        // Hiển thị tất cả bình luận khi tải trang
-        window.onload = function() {
-            const savedComments = JSON.parse(localStorage.getItem("comments")) || [];
-            savedComments.forEach(comment => {
-                addCommentToUI(comment);
-            });
-
-            checkLoginStatus(); // Kiểm tra đăng nhập khi trang được tải
-        }
+        // Đóng lightbox khi nhấn ra ngoài
+        lightbox.addEventListener("click", () => {
+            lightbox.style.display = "none";
+        });
     </script>
 </body>
 </html>
