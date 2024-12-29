@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông Tin Game</title>
     <style>
+        /* Các style ban đầu của bạn */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #000; /* Nền đen */
-            color: #fff; /* Văn bản màu trắng */
+            background: #000;
+            color: #fff;
         }
         .navbar {
             background: #007BFF;
@@ -32,10 +33,6 @@
             padding: 20px;
             text-align: center;
         }
-        .content img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
         .button {
             display: inline-block;
             margin-top: 20px;
@@ -49,34 +46,47 @@
         .button:hover {
             background: #0056b3;
         }
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Hai cột */
-            gap: 10px; /* Khoảng cách giữa các ảnh */
-            margin-top: 20px;
-        }
-        .image-grid img {
-            max-width: 100%;
+        .comment-section {
+            margin-top: 30px;
+            background-color: #333;
+            padding: 20px;
             border-radius: 10px;
+        }
+        .comment-section h3 {
+            margin-bottom: 10px;
+        }
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #444;
+            color: white;
+        }
+        .comment-form button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
+        .comment-form button:hover {
+            background-color: #0056b3;
         }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
+        .comments-list {
+            margin-top: 20px;
+            text-align: left;
         }
-        .lightbox:target {
-            display: flex;
+        .comment-item {
+            background-color: #555;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .comment-item .username {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -116,6 +126,19 @@
 
         <!-- Hiển thị tên người dùng đã đăng nhập -->
         <h3 id="username-display">Chưa đăng nhập</h3>
+    </div>
+
+    <!-- Phần bình luận -->
+    <div class="comment-section">
+        <h3>Bình luận</h3>
+        <div class="comment-form">
+            <input type="text" id="comment-username" placeholder="Tên của bạn" required>
+            <textarea id="comment-text" placeholder="Viết bình luận của bạn..." required></textarea>
+            <button onclick="submitComment()">Gửi Bình Luận</button>
+        </div>
+        <div class="comments-list" id="comments-list">
+            <!-- Bình luận sẽ hiển thị ở đây -->
+        </div>
     </div>
 
     <!-- Lightbox -->
@@ -181,6 +204,52 @@
         lightbox.addEventListener("click", () => {
             lightbox.style.display = "none";
         });
+
+        // Submit bình luận
+        function submitComment() {
+            const username = document.getElementById("comment-username").value;
+            const text = document.getElementById("comment-text").value;
+
+            if (!username || !text) {
+                alert("Bạn phải điền tên và bình luận!");
+                return;
+            }
+
+            const comment = {
+                username: username,
+                text: text,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Lưu bình luận vào localStorage
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.push(comment);
+            localStorage.setItem("comments", JSON.stringify(comments));
+
+            // Hiển thị lại danh sách bình luận
+            displayComments();
+        }
+
+        // Hiển thị các bình luận
+        function displayComments() {
+            const commentsList = document.getElementById("comments-list");
+            commentsList.innerHTML = ""; // Xóa tất cả bình luận trước khi hiển thị lại
+
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.forEach(comment => {
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("comment-item");
+                commentElement.innerHTML = `
+                    <div class="username">${comment.username}</div>
+                    <div class="timestamp">${comment.timestamp}</div>
+                    <div class="text">${comment.text}</div>
+                `;
+                commentsList.appendChild(commentElement);
+            });
+        }
+
+        // Hiển thị bình luận khi trang được tải
+        displayComments();
     </script>
 </body>
 </html>
