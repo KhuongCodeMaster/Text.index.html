@@ -180,14 +180,15 @@
     <script>
         // Kiểm tra trạng thái đăng nhập
         function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-            const logoutButton = document.getElementById("logout");
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const username = localStorage.getItem("username");
+    const logoutButton = document.getElementById("logout");
 
-            if (isLoggedIn) {
-                logoutButton.style.display = "inline-block";
-            }
-        }
-
+    if (isLoggedIn && username) {
+        logoutButton.style.display = "inline-block";
+        document.querySelector(".navbar").innerHTML += `<span>Chào, ${username}!</span>`;
+    }
+}
         // Xử lý tải game
         function downloadGame(event) {
             event.preventDefault();
