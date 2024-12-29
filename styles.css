@@ -1,0 +1,80 @@
+/* Thiết lập cơ bản */
+body {
+    background-color: #000; /* Nền đen */
+    color: #fff; /* Chữ trắng */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #222; /* Nền header */
+    border-bottom: 2px solid #444;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    margin-top: 0;
+}
+
+/* Phần ảnh */
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.image-item {
+    text-align: center;
+    width: 200px; /* Giới hạn chiều rộng ảnh */
+}
+
+.image-item img {
+    width: 100%; /* Ảnh tự điều chỉnh theo container */
+    border-radius: 5px;
+    border: 2px solid #555;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.image-item img:hover {
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+    border-color: #fff; /* Đổi màu viền */
+}
+
+.image-item p {
+    margin-top: 8px;
+    color: #ccc; /* Màu chữ mô tả */
+    font-size: 14px; /* Kích thước chữ mô tả */
+}
+
+/* Link tải game */
+.download-link {
+    display: block;
+    margin-top: 5px;
+    color: #00f; /* Link màu xanh */
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.download-link:hover {
+    color: #0ff; /* Link màu sáng hơn khi hover */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #222;
+    border-top: 2px solid #444;
+    margin-top: 20px;
+}
