@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thư Viện Game</title>
+    <title>Game 18+</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #000; /* Nền đen */
+            background: #111; /* Nền tối */
             color: #fff; /* Văn bản màu trắng */
         }
         .navbar {
-            background: #007BFF;
+            background: #FF6347; /* Đổi màu navbar */
             color: white;
-            padding: 15px 30px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -28,6 +28,7 @@
             color: white;
             text-decoration: none;
             margin-left: 15px;
+            font-size: 18px;
             transition: color 0.3s ease;
         }
         .navbar a:hover {
@@ -36,6 +37,7 @@
         h1 {
             text-align: center;
             margin-top: 80px;
+            font-size: 30px;
         }
         .menu {
             display: flex;
@@ -45,12 +47,12 @@
         }
         .menu-item {
             position: relative;
-            background: #000;
+            background: #222; /* Nền menu đen xám */
             margin: 10px;
-            padding: 15px;
-            width: 250px;
-            height: 350px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: 200px;
+            height: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             text-align: center;
             text-decoration: none;
@@ -60,7 +62,7 @@
         }
         .menu-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
         .menu-item img {
             position: absolute;
@@ -69,11 +71,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(50%);
+            filter: brightness(60%);
             transition: filter 0.3s ease;
         }
         .menu-item:hover img {
-            filter: brightness(70%);
+            filter: brightness(80%);
         }
         .menu-item h3 {
             position: absolute;
@@ -87,7 +89,7 @@
             font-size: 14px;
             color: #f0f0f0;
             text-align: center;
-            margin: 20px 0;
+            margin: 10px 0;
         }
         .menu-item a {
             display: block;
@@ -97,11 +99,15 @@
         .navbar span {
             font-size: 24px;
         }
+        .game-description {
+            font-size: 12px;
+            margin: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <span>Thư Viện Game</span>
+        <span>Game 18+</span>
         <div>
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
@@ -109,20 +115,20 @@
         </div>
     </div>
 
-    <h1>Danh Sách Game</h1>
+    <h1>Danh Sách Game 18+</h1>
     <div class="menu">
         <div class="menu-item" onclick="openGamePage(1)">
             <img src="Castle.png" alt="Eliza's Secret Potion">
             <h3>Eliza's Secret Potion</h3>
             <div class="game-description">
-                Trò chơi này mang đến những thử thách thú vị và những bí ẩn cần khám phá. Giải mã các câu đố và khám phá những phép thuật đặc biệt!
+                Trò chơi này dành cho những ai yêu thích sự bí ẩn, phép thuật và những thách thức tình cảm gay cấn!
             </div>
         </div>
         <div class="menu-item" onclick="openGamePage(2)">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
             <div class="game-description">
-                Đây là mô tả về trò chơi thứ hai, nơi bạn có thể tham gia vào những cuộc phiêu lưu đầy thử thách.
+                Khám phá một thế giới đầy rẫy những thử thách khó khăn và các mối quan hệ hấp dẫn trong trò chơi này.
             </div>
         </div>
         <!-- Thêm các game khác tương tự -->
