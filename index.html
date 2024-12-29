@@ -11,6 +11,7 @@
             padding: 0;
             background: #000; /* Nền đen */
             color: #fff; /* Văn bản màu trắng */
+            box-sizing: border-box; /* Đảm bảo padding không làm thay đổi chiều rộng của các phần tử */
         }
         .navbar {
             background: #007BFF;
@@ -19,6 +20,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Đảm bảo navbar luôn ở trên */
         }
         .navbar a {
             color: white;
@@ -30,13 +35,15 @@
         }
         h1 {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 70px; /* Dành khoảng cách cho navbar */
+            font-size: 32px;
         }
         .menu {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
+            margin-top: 50px; /* Dành khoảng cách cho navbar */
         }
         .menu-item {
             position: relative;
