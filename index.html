@@ -11,7 +11,6 @@
             padding: 0;
             background: #000; /* Nền đen */
             color: #fff; /* Văn bản màu trắng */
-            box-sizing: border-box; /* Đảm bảo padding không làm thay đổi chiều rộng của các phần tử */
         }
         .navbar {
             background: #007BFF;
@@ -23,7 +22,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000; /* Đảm bảo navbar luôn ở trên */
+            z-index: 1000;
         }
         .navbar a {
             color: white;
@@ -35,7 +34,7 @@
         }
         h1 {
             text-align: center;
-            margin-top: 70px; /* Dành khoảng cách cho navbar */
+            margin-top: 80px; /* Dành khoảng cách cho navbar */
             font-size: 32px;
         }
         .menu {
@@ -43,14 +42,14 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
-            margin-top: 50px; /* Dành khoảng cách cho navbar */
+            margin-top: 50px;
         }
         .menu-item {
             position: relative;
             width: 300px;
-            height: 400px; /* Cố định chiều cao của menu-item */
+            height: 400px; /* Đảm bảo chiều cao của mục menu */
             margin: 15px;
-            overflow: hidden; /* Đảm bảo ảnh không lan ra ngoài khu vực menu-item */
+            overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             text-align: center;
@@ -59,22 +58,17 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Thêm ảnh nền */
-        .menu-item::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Cập nhật ảnh nền để vừa với menu */
+        .menu-item img {
             width: 100%;
             height: 100%;
-            background: url('Castle.png') no-repeat center center;
-            background-size: cover; /* Đảm bảo ảnh phủ đầy khu vực */
-            z-index: -1; /* Đặt ảnh nền dưới các phần tử văn bản */
-            filter: brightness(60%);
+            object-fit: cover; /* Đảm bảo ảnh bao phủ đầy khu vực menu */
+            border-radius: 15px;
+            filter: brightness(60%); /* Làm tối ảnh để văn bản dễ nhìn hơn */
         }
 
-        /* Lớp phủ mờ khi hover để làm văn bản dễ đọc hơn */
-        .menu-item:hover::before {
+        /* Lớp phủ mờ khi hover */
+        .menu-item:hover img {
             filter: brightness(50%);
         }
 
@@ -85,23 +79,28 @@
         }
 
         .menu-item h3 {
-            margin: 20px 0;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 24px;
             font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .menu-item p {
-            font-size: 16px;
-            line-height: 1.5;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            text-align: center;
         }
 
-        /* Điều chỉnh ảnh để không bị chồng lên */
-        .menu-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
     </style>
 </head>
 <body>
