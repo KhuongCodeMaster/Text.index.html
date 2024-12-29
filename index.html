@@ -54,18 +54,7 @@
         }
         .menu-item:hover {
             background: #f0f0f0;
-        }
-        .button {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .button:hover {
-            background: #0056b3;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -81,18 +70,15 @@
 
     <h1>Danh Sách Game</h1>
     <div class="menu">
-        <div class="menu-item">
+        <div class="menu-item" onclick="openGamePage(1)">
             <img src="Castle.png" alt="Game 1">
             <h3>Game 1</h3>
-            <a href="2_index.html" class="button">Thông Tin</a>
-            <a href="#" class="button" onclick="downloadGame(event, 'Game 1')">Tải Game</a>
         </div>
-        <div class="menu-item">
+        <div class="menu-item" onclick="openGamePage(2)">
             <img src="game2/image2.jpg" alt="Game 2">
             <h3>Game 2</h3>
-            <a href="game2/index.html" class="button">Thông Tin</a>
-            <a href="#" class="button" onclick="downloadGame(event, 'Game 2')">Tải Game</a>
         </div>
+        <!-- Thêm các game khác tương tự -->
     </div>
 
     <script>
@@ -113,18 +99,9 @@
             window.location.reload();
         });
 
-        // Xử lý tải game
-        function downloadGame(event, gameName) {
-            event.preventDefault();
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-            if (isLoggedIn) {
-                alert(`Bắt đầu tải ${gameName}!`);
-                // Chuyển sang link tải thực tế ở đây nếu cần
-            } else {
-                alert("Bạn cần đăng nhập để tải game này!");
-                window.location.href = "login.html";
-            }
+        // Chuyển đến trang thông tin game
+        function openGamePage(gameId) {
+            window.location.href = `game.html?id=${gameId}`;
         }
 
         // Chạy kiểm tra khi tải trang
