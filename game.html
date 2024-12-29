@@ -133,7 +133,7 @@
 
     <div class="content">
         <h1 id="game-title">Eliza's Secret Potion</h1>
-        <img id="game-image" src="Castle.png" alt="Ảnh Game Chính" width="300">
+        <img id="game-image" src="Castle.png" alt="Ảnh Game Chính">
         <p id="game-description">
             Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng nâng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚
         </p>
@@ -169,8 +169,75 @@
     </div>
 
     <script>
-        // JavaScript của bạn (cũng như đã được tích hợp ở trên)
-        // Giữ nguyên mọi logic mà bạn đã viết trước đó.
+        // Xử lý Lightbox cho ảnh
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+
+        document.querySelectorAll(".image-grid img").forEach(img => {
+            img.addEventListener("click", () => {
+                lightbox.style.display = "flex";
+                lightboxImg.src = img.src;
+            });
+        });
+
+        lightbox.addEventListener("click", () => {
+            lightbox.style.display = "none";
+        });
+
+        // Xử lý tải game
+        function downloadGame(event) {
+            event.preventDefault();
+            alert("Đang tải game... Vui lòng chờ.");
+        }
+
+        // Xử lý bình luận
+        function submitComment() {
+            const username = document.getElementById("comment-username").value.trim();
+            const text = document.getElementById("comment-text").value.trim();
+
+            if (!username || !text) {
+                alert("Bạn phải điền tên và nội dung bình luận!");
+                return;
+            }
+
+            const comment = {
+                username: username,
+                text: text,
+                timestamp: new Date().toLocaleString()
+            };
+
+            let comments = JSON.parse(localStorage.getItem("comments")) || [];
+            comments.push(comment);
+            localStorage.setItem("comments", JSON.stringify(comments));
+
+            displayComments();
+            document.getElementById("comment-username").value = "";
+            document.getElementById("comment-text").value = "";
+        }
+
+        function displayComments() {
+            const commentsList = document.getElementById("comments-list");
+            commentsList.innerHTML = "";
+
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            if (comments.length === 0) {
+                commentsList.innerHTML = "<p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>";
+                return;
+            }
+
+            comments.forEach(comment => {
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("comment-item");
+                commentElement.innerHTML = `
+                    <div class="username">${comment.username}</div>
+                    <div class="timestamp">${comment.timestamp}</div>
+                    <div class="text">${comment.text}</div>
+                `;
+                commentsList.appendChild(commentElement);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", displayComments);
     </script>
 </body>
 </html>
