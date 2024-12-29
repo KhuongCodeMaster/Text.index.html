@@ -32,23 +32,27 @@
             padding: 20px;
             text-align: center;
         }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer; /* Gợi ý rằng ảnh có thể bấm */
+        }
         .image-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); /* 2 cột */
-            gap: 15px; /* Khoảng cách giữa các ảnh */
+            gap: 15px;
             justify-content: center;
             margin-top: 20px;
         }
         .image-grid img {
             width: 100%;
             border-radius: 5px;
-            cursor: pointer; /* Thêm con trỏ để gợi ý có thể click */
+            cursor: pointer;
             transition: transform 0.3s;
         }
         .image-grid img:hover {
-            transform: scale(1.05); /* Phóng to khi hover */
+            transform: scale(1.05);
         }
-
         /* Lightbox styles */
         .lightbox {
             position: fixed;
@@ -67,8 +71,8 @@
             max-height: 90%;
             border-radius: 10px;
         }
-        .lightbox:target {
-            display: flex; /* Hiển thị lightbox khi được chọn */
+        .lightbox.active {
+            display: flex;
         }
     </style>
 </head>
@@ -84,43 +88,45 @@
     </div>
 
     <div class="content">
-        <h1 id="game-title">Tên Game</h1>
-        <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
+        <h1 id="game-title">Eliza's Secret Potion</h1>
+        <img id="game-image" src="Castle.png" alt="Ảnh Game Chính">
+        <p id="game-description">
+            Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚
+        </p>
 
         <!-- Lưới hình ảnh -->
         <h2>Show Một Chút Ảnh 🌚:</h2>
-        <div class="image-grid" id="game-images">
-            <a href="#img1"><img id="img1" src="悪夢.png" alt="悪夢" /></a>
-            <a href="#img2"><img id="img2" src="C-2 全身.png" alt="C-2 全身" /></a>
-            <a href="#img3"><img id="img3" src="F-1 全体.png" alt="F-1 全体" /></a>
-            <a href="#img4"><img id="img4" src="D-11 深く.png" alt="D-11 深く" /></a>
-            <a href="#img5"><img id="img5" src="B-7 中出し.png" alt="B-7 中出し" /></a>
-            <a href="#img6"><img id="img6" src="E-8 深い.png" alt="E-8 深い" /></a>
-            <a href="#img7"><img id="img7" src="J-14 中出し後.png" alt="J-14 中出し後" /></a>
+        <div class="image-grid">
+            <img src="悪夢.png" alt="悪夢" onclick="showLightbox(this)">
+            <img src="C-2 全身.png" alt="C-2 全身" onclick="showLightbox(this)">
+            <img src="F-1 全体.png" alt="F-1 全体" onclick="showLightbox(this)">
+            <img src="D-11 深く.png" alt="D-11 深く" onclick="showLightbox(this)">
+            <img src="B-7 中出し.png" alt="B-7 中出し" onclick="showLightbox(this)">
+            <img src="E-8 深い.png" alt="E-8 深い" onclick="showLightbox(this)">
+            <img src="J-14 中出し後.png" alt="J-14 中出し後" onclick="showLightbox(this)">
         </div>
     </div>
 
     <!-- Lightbox -->
-    <div id="img1" class="lightbox">
-        <img src="悪夢.png" alt="悪夢" />
+    <div class="lightbox" id="lightbox" onclick="hideLightbox()">
+        <img id="lightbox-image" src="" alt="Xem Ảnh Lớn">
     </div>
-    <div id="img2" class="lightbox">
-        <img src="C-2 全身.png" alt="C-2 全身" />
-    </div>
-    <div id="img3" class="lightbox">
-        <img src="F-1 全体.png" alt="F-1 全体" />
-    </div>
-    <div id="img4" class="lightbox">
-        <img src="D-11 深く.png" alt="D-11 深く" />
-    </div>
-    <div id="img5" class="lightbox">
-        <img src="B-7 中出し.png" alt="B-7 中出し" />
-    </div>
-    <div id="img6" class="lightbox">
-        <img src="E-8 深い.png" alt="E-8 深い" />
-    </div>
-    <div id="img7" class="lightbox">
-        <img src="J-14 中出し後.png" alt="J-14 中出し後" />
-    </div>
+
+    <script>
+        // Hiển thị lightbox
+        function showLightbox(imgElement) {
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImage = document.getElementById("lightbox-image");
+
+            lightboxImage.src = imgElement.src;
+            lightbox.classList.add("active");
+        }
+
+        // Ẩn lightbox
+        function hideLightbox() {
+            const lightbox = document.getElementById("lightbox");
+            lightbox.classList.remove("active");
+        }
+    </script>
 </body>
 </html>
