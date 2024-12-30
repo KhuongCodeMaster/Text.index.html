@@ -12,19 +12,23 @@
             background: #000; /* Nền đen */
             color: #fff; /* Văn bản màu trắng */
         }
+
+        /* Menu chính */
         .navbar {
             background: #007BFF;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 15px; /* Giảm kích thước menu */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .navbar a {
             color: white;
             text-decoration: none;
             margin-left: 15px;
         }
+
         .navbar a:hover {
             text-decoration: underline;
         }
@@ -40,44 +44,52 @@
             color: #ffcc00;
         }
 
-        /* Menu dưới sảnh */
-        .sanh-menu {
+        /* Menu dưới sảnh (Game menu) */
+        .game-menu {
             font-size: 14px; /* Giảm kích thước chữ */
             padding: 10px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px; /* Khoảng cách giữa các mục */
+            gap: 10px; /* Khoảng cách giữa các mục */
             margin-top: 20px;
         }
 
-        .sanh-menu a {
+        .game-menu a {
             font-size: 14px; /* Giảm kích thước chữ */
             padding: 8px 12px; /* Giảm kích thước nút */
-            margin: 5px; /* Giảm khoảng cách giữa các mục */
-            display: inline-block;
             background-color: #007BFF;
             color: white;
             text-decoration: none;
             border-radius: 5px;
         }
 
-        .sanh-menu a:hover {
+        .game-menu a:hover {
             background-color: #0056b3;
         }
 
-        .sanh-menu img {
-            max-width: 80px; /* Giảm kích thước hình ảnh */
-            max-height: 80px; /* Giảm chiều cao của ảnh */
-            margin: 5px; /* Giảm khoảng cách giữa các ảnh */
-            transition: transform 0.3s ease; /* Hiệu ứng phóng to khi hover */
+        /* Menu phụ (Menu2) */
+        .menu2 {
+            font-size: 14px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .sanh-menu img:hover {
-            transform: scale(1.1); /* Phóng to nhẹ khi hover */
+        .menu2 a {
+            font-size: 14px;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
         }
 
-        /* Các nút hoặc liên kết khác */
+        .menu2 a:hover {
+            background-color: #218838;
+        }
+
         .button {
             display: inline-block;
             margin-top: 20px;
@@ -87,6 +99,7 @@
             border-radius: 5px;
             text-decoration: none;
         }
+
         .button:hover {
             background: #0056b3;
         }
@@ -107,14 +120,18 @@
     <div class="content">
         <h1>Chào Mừng Đến Với Trang Game</h1>
 
-        <!-- Menu game dưới sảnh -->
-        <div class="sanh-menu">
+        <!-- Menu Game -->
+        <div class="game-menu">
             <a href="game1.html">Game 1</a>
             <a href="game2.html">Game 2</a>
             <a href="game3.html">Game 3</a>
-            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/Akumu.png" alt="Game Image 1" />
-            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/C-2 zenshin.png" alt="Game Image 2" />
-            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/D-11 fukaku.png" alt="Game Image 3" />
+        </div>
+
+        <!-- Menu phụ (Menu2) -->
+        <div class="menu2">
+            <a href="about.html">Giới Thiệu</a>
+            <a href="contact.html">Liên Hệ</a>
+            <a href="faq.html">FAQ</a>
         </div>
 
         <a href="#" class="button">Tải Game</a>
