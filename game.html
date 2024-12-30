@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000; /* Nền đen */
+            color: #fff; /* Văn bản màu trắng */
+        }
+        .navbar {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        /* Menu Hamburger */
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .navbar-links {
+            display: flex;
+        }
+        .navbar-links a {
+            margin-left: 15px;
+        }
+        .navbar-links.active {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                background-color: #007BFF;
+                width: 100%;
+                padding: 20px 0;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .navbar-links a {
+                margin-left: 0;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content img {
+            max-width: 100%;
+            border-radius: 10px;
+            cursor: pointer; /* Con trỏ khi di chuột qua ảnh */
+            transition: transform 0.3s ease;
+        }
+        .content img:hover {
+            transform: scale(1.05); /* Phóng to nhẹ khi hover */
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+
+        /* Lưới ảnh với Flexbox */
+        .game-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 cột */
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Phóng to ảnh khi click */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span>Thông Tin Game</span>
+        <div class="navbar-links" id="navbar-links">
+            <a href="index.html">Trang Chủ</a>
+            <a href="register.html">Đăng Ký</a>
+            <a href="login.html">Đăng Nhập</a>
+            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
+        </div>
+        <span class="menu-icon" id="menu-icon">&#9776;</span> <!-- Icon 3 gạch -->
+    </div>
+
+    <div class="content">
+        <h1 id="game-title">Tên Game</h1>
+        <img id="game-image" src="" alt="Ảnh Game">
+        <p id="game-description">Mô tả game sẽ hiển thị ở đây...</p>
+
+        <!-- Các ảnh của game -->
+        <h2>Thể Loại RPGM 18+</h2>
+        <h2>Game:Hoàn Thành</h2>
+        <h2>Game Có Ngon Không:Ngon 🥵</h2>
+        <h2>Show Một Chút Ảnh 🌚:</h2>
+        <div class="game-images" id="game-images">
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/Akumu.png" alt="Akumu.png lỗi ảnh 🤫" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/C-2 zenshin.png" alt="lỗi ảnh" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/D-11 fukaku.png" alt="lỗi ảnh" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/F-1zentai.png" alt="Ảnh Lỗiく" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/B-7 Creampie.png" alt="B-7 中出し" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/E-8fukai.png" alt="E-8 深い" onclick="openModal(this.src)" />
+            <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/J14Naka-dashi-5.png" alt="Ảnh Naka" onclick="openModal(this.src)" />
+        </div>
+
+        <a href="#" class="button" onclick="downloadGame(event)">Tải Game</a>
+    </div>
+
+    <!-- Modal để phóng to ảnh -->
+    <div class="modal" id="image-modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modal-img" src="" alt="Phóng to ảnh">
+    </div>
+
+    <script>
+        // Danh sách thông tin game
+        const gameData = {
+            1: {
+                title: "Eliza's Secret Potion",
+                image: "https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/Castle.png",
+                description: "<p>Eliza là một cô phù thủy trẻ, khám phá một công thức bí ẩn gọi là Secret Potion. Trong hành trình, bạn sẽ vào vai nhân vật nam da đen 🙍🏿‍♂️ và bạn sẽ cố gắng đắng cấp công thức chế tạo Secret Potion và để làm gì thì tự biết đi nhá 🌚."
+            },
+            2: {
+                title: "Game 2",
+                image: "game2/image2.jpg",
+                description: "Đây là mô tả của Game 2."
+            }
+        };
+
+        // Kiểm tra trạng thái đăng nhập
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const logoutButton = document.getElementById("logout");
+
+            if (isLoggedIn) {
+                logoutButton.style.display = "inline-block";
+            }
+        }
+
+        // Hiển thị thông tin game dựa trên ID
+        function loadGameInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get("id");
+            const game = gameData[gameId];
+
+            if (game) {
+                document.getElementById("game-title").textContent = game.title;
+                document.getElementById("game-image").src = game.image;
+                document.getElementById("game-description").innerHTML = game.description;
+            } else {
+                document.querySelector(".content").innerHTML = "<h1>Game không tồn tại</h1>";
+            }
+        }
+
+        // Xử lý tải game
+        function downloadGame(event) {
+            event.preventDefault();
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+            if (isLoggedIn) {
+                alert("Bắt đầu tải game!");
+                // Thực hiện tải game thực tế ở đây
+            } else {
+                alert("Bạn cần đăng nhập để tải game này!");
+                window.location.href = "login.html";
+            }
+        }
+
+        // Mở modal phóng to ảnh
+        function openModal(src) {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("modal-img");
+            modal.style.display = "flex"; // Hiển thị modal
+            modalImg.src = src; // Cập nhật nguồn ảnh trong modal
+        }
+
+        // Đóng modal
+        function closeModal() {
+            const modal = document.getElementById("image-modal");
+            modal.style.display = "none"; // Ẩn modal
+        }
+
+        // Chạy khi tải trang
+        checkLoginStatus();
+        loadGameInfo();
+
+        // Điều khiển hiển thị menu hamburger
+        document.getElementById("menu-icon").onclick = function() {
+            document.getElementById("navbar-links").classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
