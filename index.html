@@ -3,152 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ Game</title>
+    <title>Danh Sách Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #000; /* Nền đen */
-            color: #fff; /* Văn bản màu trắng */
+            background-color: #000;
+            color: #fff;
         }
 
-        /* Menu chính */
         .navbar {
             background: #007BFF;
             color: white;
-            padding: 10px 15px; /* Giảm kích thước menu */
+            padding: 5px 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
-        .navbar a {
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            background: white;
+            height: 3px;
+            width: 25px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background: #333;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown a {
+            display: block;
             color: white;
             text-decoration: none;
-            margin-left: 15px;
+            padding: 15px;
+            transition: background 0.3s ease;
         }
 
-        .navbar a:hover {
-            text-decoration: underline;
+        .dropdown a:hover {
+            background: #444;
         }
 
-        /* Nội dung chính */
+        /* Sửa đổi để khi show menu có hiệu ứng mượt mà */
+        .dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .content {
             padding: 20px;
-            text-align: center;
         }
 
-        .content h1 {
-            font-size: 24px;
-            color: #ffcc00;
+        .game-item {
+            margin-bottom: 10px;
         }
 
-        /* Menu dưới sảnh (Game menu) */
-        .game-menu {
-            font-size: 14px; /* Giảm kích thước chữ */
+        .game-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid transparent;
             padding: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px; /* Khoảng cách giữa các mục */
-            margin-top: 20px;
+            border-radius: 3px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            background-color: #1a1a1a;
         }
 
-        .game-menu a {
-            font-size: 14px; /* Giảm kích thước chữ */
-            padding: 8px 12px; /* Giảm kích thước nút */
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        .game-link img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
         }
 
-        .game-menu a:hover {
-            background-color: #0056b3;
+        .game-link:hover, .game-link:focus {
+            border-color: #007BFF;
+            transform: scale(1.02);
         }
 
-        /* Menu phụ (Menu2) */
-        .menu2 {
-            font-size: 14px;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+        .game-link:hover img {
+            transform: scale(1.05);
         }
-
-        .menu2 a {
-            font-size: 14px;
-            padding: 8px 12px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .menu2 a:hover {
-            background-color: #218838;
-        }
-
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            background: #0056b3;
-        }
-
     </style>
 </head>
 <body>
+    <!-- Thanh điều hướng -->
     <div class="navbar">
-        <span>Trang Chủ Game</span>
-        <div>
-            <a href="index.html">Trang Chủ</a>
+        <span>Danh Sách Game</span>
+
+        <!-- Nút ba gạch -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Menu Dropdown -->
+        <div class="dropdown" id="menuDropdown">
             <a href="register.html">Đăng Ký</a>
             <a href="login.html">Đăng Nhập</a>
-            <a href="#" id="logout" style="display: none;">Đăng Xuất</a>
+            <a href="#" onclick="logout()">Đăng Xuất</a>
         </div>
     </div>
 
+    <!-- Nội dung chính -->
     <div class="content">
-        <h1>Chào Mừng Đến Với Trang Game</h1>
+        <h1>Danh Sách Game</h1>
 
-        <!-- Menu Game -->
-        <div class="game-menu">
-            <a href="game1.html">Game 1</a>
-            <a href="game2.html">Game 2</a>
-            <a href="game3.html">Game 3</a>
+        <!-- Game 1 -->
+        <div class="game-item">
+            <a href="game.html?id=1" class="game-link">
+                <h2>Game 1: Eliza's Secret Potion</h2>
+                <p>Một game RPGM 18+ hấp dẫn với nội dung thú vị.</p>
+                <img src="https://raw.githubusercontent.com/KhuongCodeMaster/ESPchuaanh/main/Castle.png" 
+                     alt="Eliza's Secret Potion Intro">
+            </a>
         </div>
-
-        <!-- Menu phụ (Menu2) -->
-        <div class="menu2">
-            <a href="about.html">Giới Thiệu</a>
-            <a href="contact.html">Liên Hệ</a>
-            <a href="faq.html">FAQ</a>
-        </div>
-
-        <a href="#" class="button">Tải Game</a>
     </div>
 
     <script>
-        // Kiểm tra trạng thái đăng nhập
-        function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-            const logoutButton = document.getElementById("logout");
-
-            if (isLoggedIn) {
-                logoutButton.style.display = "inline-block";
+        // Hiển thị hoặc ẩn menu với hiệu ứng chuyển động mượt mà
+        function toggleMenu() {
+            const menu = document.getElementById('menuDropdown');
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                // Đảm bảo menu ẩn mượt mà
+                setTimeout(function() {
+                    menu.style.display = 'none'; // Ẩn menu sau khi chuyển động kết thúc
+                }, 300);
+            } else {
+                menu.style.display = 'block'; // Hiển thị menu
+                setTimeout(function() {
+                    menu.classList.add('show');
+                }, 10); // Thêm lớp show sau khi hiển thị
             }
         }
 
-        checkLoginStatus();
+        // Đăng xuất
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            alert("Bạn đã đăng xuất thành công!");
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>
